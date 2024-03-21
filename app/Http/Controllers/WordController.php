@@ -60,6 +60,7 @@ class WordController extends Controller
      */
     public function destroy(Word $word)
     {
-        //
+        $word->delete();
+        return to_route('admin.words.index')->with('type', 'danger')->with('message', 'Post eliminato con successo');
     }
 }
