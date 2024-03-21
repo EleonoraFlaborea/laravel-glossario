@@ -14,7 +14,7 @@ class WordController extends Controller
     {
         $words = Word::all();
 
-        return view('words.index', compact('words'));
+        return view('admin.words.index', compact('words'));
     }
 
     /**
@@ -56,7 +56,7 @@ class WordController extends Controller
      */
     public function show(Word $word)
     {
-        return view('comics.show', compact('comic'));
+        return view('admin.words.show', compact('word'));
     }
 
     /**
@@ -89,7 +89,7 @@ class WordController extends Controller
 
         $word->save();
 
-        return to_route('admin.words.show', $word)->with('message', 'Parola modificato con successo')->with('type', 'success');
+        return to_route('admin.words.show', $word)->with('message', 'Parola modificata con successo')->with('type', 'success');
     }
 
     /**
