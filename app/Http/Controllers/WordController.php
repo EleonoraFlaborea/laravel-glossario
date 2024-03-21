@@ -12,7 +12,9 @@ class WordController extends Controller
      */
     public function index()
     {
-        //
+        $words = Word::all();
+
+        return view('words.index', compact('words'));
     }
 
     /**
@@ -36,7 +38,7 @@ class WordController extends Controller
      */
     public function show(Word $word)
     {
-        //
+        return view('comics.show', compact('comic'));
     }
 
     /**
