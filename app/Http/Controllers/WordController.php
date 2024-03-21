@@ -22,7 +22,8 @@ class WordController extends Controller
      */
     public function create()
     {
-        //
+        $word = new Word();
+        return view('admin.words.create', compact('word'));
     }
 
     /**
@@ -30,7 +31,24 @@ class WordController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate(
+            [
+                'word_name' => 'required|string|min:1|max:50|unique:words',
+                'description' => 'required|string',
+            ],
+            [
+                'word_name.required' => 'La parola è obbligatoria',
+                'word_name.unique' => 'La parola è già presente',
+                'word_name.max' => 'La parola deve essere massimo di :max caratteri',
+                'word_name.min' => 'La parola deve essere minimo più di :min caratteri',
+                'description.required' => 'La descrizione è obbligatoria'
+            ]
+        );
+        $data = $request->all();
+        $new_word = new Word();
+        $new_word->fill($data);
+        $new_word->save();
+        return to_route('admin.words.show', $new_word);
     }
 
     /**

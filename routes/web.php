@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\WordController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,10 +23,14 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+
+Route::get('/admin/words/create', [WordController::class, 'create'])->name('admin.words.create');
+Route::post('/admin/words', [WordController::class, 'store'])->name('admin.words.store');
 // Route x Index
-Route::get('/words', [WordController::class, 'index'])->name('words.index');
+Route::get('/admin/words', [WordController::class, 'index'])->name('admin.words.index');
 // Route x Show
-Route::get('/words/{word}', [WordController::class, 'show'])->name('words.show');
+Route::get('/admin/words/{word}', [WordController::class, 'show'])->name('admin.words.show');
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -33,4 +38,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
