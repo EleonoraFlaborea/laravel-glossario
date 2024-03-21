@@ -23,8 +23,14 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+
 Route::get('/admin/words/create', [WordController::class, 'create'])->name('admin.words.create');
 Route::post('/admin/words', [WordController::class, 'store'])->name('admin.words.store');
+// Route x Index
+Route::get('/admin/words', [WordController::class, 'index'])->name('admin.words.index');
+// Route x Show
+Route::get('/admin/words/{word}', [WordController::class, 'show'])->name('admin.words.show');
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
