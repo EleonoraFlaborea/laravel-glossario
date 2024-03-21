@@ -24,6 +24,9 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 
+Route::delete('/admin/words/{word}', [WordController::class, 'destroy'])->name('admin.words.destroy');
+
+
 Route::get('/admin/words/create', [WordController::class, 'create'])->name('admin.words.create');
 Route::post('/admin/words', [WordController::class, 'store'])->name('admin.words.store');
 // Route x Index
