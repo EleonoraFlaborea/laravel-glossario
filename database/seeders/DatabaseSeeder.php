@@ -15,8 +15,10 @@ class DatabaseSeeder extends Seeder
         \App\Models\Word::factory(10)->create();
 
         \App\Models\User::factory()->create([
-             'name' => 'Eleonora',
-             'email' => 'eleonora@example.com',
+            'name' => 'Eleonora',
+            'email' => 'eleonora@example.com',
         ]);
+
+        $this->call(LinkSeeder::class);
     }
 }

@@ -9,7 +9,7 @@
 
         <table class="table table-striped table-dark">
             <thead>
-                <tr>
+                <tr class="align-middle">
                     <th scope="col">#</th>
                     <th scope="col">Word</th>
                     <th scope="col">Description</th>
@@ -27,11 +27,11 @@
                     <tr>
                         <th scope="row">{{ $word->id }}</th>
                         <td>{{ $word->word_name }}</td>
-                        <td>{{ $word->getAbstract() }} <a href="{{ route('admin.words.show', $word) }}">[...]</a></td>
+                        <td class="w-50">{{ $word->getAbstract() }} <a href="{{ route('admin.words.show', $word) }}">[...]</a></td>
                         <td>{{ $word->getFormattedDate('created_at') }}</td>
                         <td>{{ $word->getFormattedDate('updated_at') }}</td>
                         <td>
-                            <div class="d-flex justify-content-end align-items-center gap-2">
+                            <div class="d-flex justify-content-center align-items-center gap-2">
                                 {{-- Icona visualizza parola --}}
                                 <a href="{{ route('admin.words.show', $word) }}" class="btn btn-sm btn-primary">
                                     <i class="fas fa-eye"></i>
