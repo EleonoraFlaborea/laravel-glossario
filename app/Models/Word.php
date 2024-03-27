@@ -12,11 +12,13 @@ class Word extends Model
 
     protected $fillable = ['word_name', 'description'];
 
-    public function getFormattedDate($column, $format = 'd/m/y h:i:s'){
-        return Carbon::create($this->column)->format($format);
+    public function getFormattedDate($column, $format = 'd/m/y h:i:s')
+    {
+        return Carbon::create($this->$column)->format($format);
     }
 
-    public function getAbstract(){
+    public function getAbstract()
+    {
         return substr($this->description, 0, 450);
     }
 }
