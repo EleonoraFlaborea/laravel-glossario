@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Word;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class WordController extends Controller
 {
@@ -73,8 +74,8 @@ class WordController extends Controller
     public function update(Request $request, Word $word)
     {
         $request->validate([
-            'word_name' => 'required|string|min:1|max:50|unique:words',
-            'description' => 'required|text',
+            'word_name' => ['required', 'string', 'min:1', 'max:50', Rule::unique('words')->ignore($word->id)],
+            'description' => 'required|string',
         ], [
             'word_name.required' => 'La parola è obbligatorio',
             'word_name.unique' => 'La parola è già presente',
