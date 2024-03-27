@@ -15,8 +15,6 @@
             Non ci sono link associati
         </div>
         @endforelse
-
-
         </div>
     </div>
 
