@@ -8,9 +8,13 @@
         <h5 class="card-title text-center">{{$word->word_name}}</h5>      
         <p class="card-text">{{$word->description}}</p>
 
+        @forelse ( $word->links as $link )
+           Fonte: <a href="{{$link->url}}">{{$link->name}}</a>
+        @empty            
         <div>
-            Link associati....
+            Non ci sono link associati
         </div>
+        @endforelse
 
 
         </div>

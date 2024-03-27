@@ -16,22 +16,23 @@ class LinkSeeder extends Seeder
     public function run(): void
     {
         $links = [
-            'https://it.wikipedia.org/wiki/Pagina_principale',
-            'https://www.youtube.com',
-            'https://www.google.com',
-            'https://www.facebook.com',
-            'https://www.twitch.tv',
-            'https://www.instagram.com',
-            'https://boolean.careers/corso/full-stack-web-development',
-            'https://www.amazon.it',
-            'https://it.linkedin.com'
+            ['name' => 'Wikipedia', 'url' => 'https://it.wikipedia.org/wiki/Pagina_principale'],
+            ['name' => 'YouTube', 'url' => 'https://www.youtube.com'],
+            ['name' => 'Facebook', 'url' => 'https://www.facebook.com'],
+            ['name' => 'Google', 'url' => 'https://www.google.com'],
+            ['name' => 'Twitch', 'url' => 'https://www.twitch.tv'],
+            ['name' => 'Instagram', 'url' => 'https://www.instagram.com'],
+            ['name' => 'Boolean', 'url' => 'https://boolean.careers/corso/full-stack-web-development'],
+            ['name' => 'Amazon', 'url' => 'https://www.amazon.it'],
+            ['name' => 'Linkedin', 'url' => 'https://it.linkedin.com']
         ];
 
         $word_ids = Word::pluck('id')->toArray();
         foreach ($links as $link) {
             $new_link = new Link();
             $new_link->word_id = Arr::random($word_ids);
-            $new_link->url = $link;
+            $new_link->name = $link['name'];
+            $new_link->url = $link['url'];
             $new_link->save();
         }
     }
