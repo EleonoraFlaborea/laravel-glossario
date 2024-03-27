@@ -2,12 +2,6 @@
 
 @section('title', 'Words List')
 
-@section('cdn')
-    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css'
-        integrity='sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=='
-        crossorigin='anonymous' />
-@endsection
-
 @section('content')
     <div class="container">
 
@@ -29,9 +23,9 @@
                     <tr>
                         <th scope="row">{{ $word->id }}</th>
                         <td>{{ $word->word_name }}</td>
-                        <td>{{ $word->description }}</td>
-                        <td>{{ $word->created_at }}</td>
-                        <td>{{ $word->updated_at }}</td>
+                        <td>{{ $word->getAbstract() }} <a href="{{ route('admin.words.show', $word) }}">[...]</a></td>
+                        <td>{{ $word->getFormattedDate('created_at') }}</td>
+                        <td>{{ $word->getFormattedDate('updated_at') }}</td>
                         <td>
                             <div class="d-flex justify-content-end align-items-center gap-2">
                                 {{-- Icona visualizza parola --}}
