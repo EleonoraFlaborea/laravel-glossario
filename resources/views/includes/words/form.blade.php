@@ -4,7 +4,6 @@
     @else
     <form action="{{route('admin.words.store')}}" enctype="multipart/form-data" method="POST"> 
 @endif
-
     @csrf
     <div class="row g-4">
         {{-- Input word_name --}}
@@ -19,32 +18,17 @@
             <label for="slug">Slug</label>
             <input type="text" id="slug" class="form-control my-2" value="{{Str::slug(old('word_name', $word->word_name))}}" disabled >
         </div> --}}
-        {{-- Input tipologia --}}
-        {{-- <div class="col-5">
-            <div class="form-group">
-                <label for="type_id">Decidi la tipologia</label>
-                <select class="form-select my-2 @error('image') is-invalid @elseif(old('image', '')) is-valid @enderror" id="type_id" name="type_id">
-                    <option value="">Seleziona</option>
-                    @foreach ($types as $type)
-                    <option value="{{$type->id}}" @if (old('type_id', $word->type?->id) == $type->id) selected @endif>
-                        {{$type->label ? : 'Nessuna'}}
-                    </option>                        
-                    @endforeach
-                  </select>
-                @error('type_id')
-                <div class="invalid-feedback">{{$message}}</div>
-                @enderror
-            </div>
-        </div>
+        
         <div class="col-12">
-            <label for="technologies">Seleziona le tecnologie usate:</label>
-            @foreach ($techs as $tech)
-            <div class="form-check form-check-inline" id="technologies">
-                <input class="form-check-input" type="checkbox" id="{{"tech-$tech->id"}}" value="{{$tech->id}}" name="techs[]" @if (in_array($tech->id, old('techs', $old_techs ?? []))) checked @endif>
-                <label class="form-check-label" for="{{"tech-$tech->id"}}">{{$tech->label}}</label>                    
+            <label for="links">Seleziona i link usati:</label>
+            
+            @foreach ($links as $link)
+            <div class="form-check form-check-inline" id="links">
+                <input class="form-check-input" type="checkbox" id="{{"link-$link->id"}}" value="{{$link->id}}" name="links[]" @if (in_array($link->id, old('links', $old_links ?? []))) checked @endif>
+                <label class="form-check-label" for="{{"link-$link->id"}}">{{$link->name}}</label>                    
             </div>
             @endforeach
-        </div> --}}
+        </div>
         {{-- Input description --}}
         <div class="col-12">
             <div class="form-group">

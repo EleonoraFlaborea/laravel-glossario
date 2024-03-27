@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Link;
 use App\Models\Word;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Validation\Rule;
 
 class WordController extends Controller
@@ -24,7 +26,8 @@ class WordController extends Controller
     public function create()
     {
         $word = new Word();
-        return view('admin.words.create', compact('word'));
+        $links = Link::select('id', 'name')->get();
+        return view('admin.words.create', compact('word', 'links'));
     }
 
     /**
@@ -36,19 +39,27 @@ class WordController extends Controller
             [
                 'word_name' => 'required|string|min:1|max:50|unique:words',
                 'description' => 'required|string',
+                'links' => 'nullable|exists:links,id'
             ],
             [
                 'word_name.required' => 'La parola è obbligatoria',
                 'word_name.unique' => 'La parola è già presente',
                 'word_name.max' => 'La parola deve essere massimo di :max caratteri',
                 'word_name.min' => 'La parola deve essere minimo più di :min caratteri',
-                'description.required' => 'La descrizione è obbligatoria'
+                'description.required' => 'La descrizione è obbligatoria',
+                'links.exists' => 'Il link usato non è contemplato'
             ]
         );
         $data = $request->all();
+        // @dd($data['links']);
         $new_word = new Word();
         $new_word->fill($data);
         $new_word->save();
+        foreach ($data['links'] as $id_link) {
+            $ob_link = Link::whereId($id_link)->first();
+            $ob_link->word_id = $new_word->id;
+            $ob_link->save();
+        }
         return to_route('admin.words.show', $new_word);
     }
 
@@ -65,7 +76,9 @@ class WordController extends Controller
      */
     public function edit(Word $word)
     {
-        return view('admin.words.edit', compact('word'));
+        $links = Link::select('id', 'name')->get();
+        $old_links = $word->links->pluck('id')->toArray();
+        return view('admin.words.edit', compact('word', 'links', 'old_links'));
     }
 
     /**
@@ -76,12 +89,14 @@ class WordController extends Controller
         $request->validate([
             'word_name' => ['required', 'string', 'min:1', 'max:50', Rule::unique('words')->ignore($word->id)],
             'description' => 'required|string',
+            'links' => 'nullable|exists:links,id'
         ], [
             'word_name.required' => 'La parola è obbligatorio',
             'word_name.unique' => 'La parola è già presente',
             'word_name.min' => 'La parola deve essere almeno :min lunga',
             'word_name.max' => 'La parola deve essere massimo :max lunga',
             'description.required' => 'La descrizione è obbligatoria',
+            'links.exists' => 'Il link usato non è contemplato'
         ]);
 
         $data = $request->all();
@@ -89,7 +104,11 @@ class WordController extends Controller
         $word->fill($data);
 
         $word->save();
-
+        foreach ($data['links'] as $id_link) {
+            $ob_link = Link::whereId($id_link)->first();
+            $ob_link->word_id = $word->id;
+            $ob_link->save();
+        }
         return to_route('admin.words.show', $word)->with('message', 'Parola modificata con successo')->with('type', 'success');
     }
 
