@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Guest;
 
+use App\Models\Word;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -9,6 +10,14 @@ class HomeController extends Controller
 {
     public function __invoke()
     {
-        return view('guest.home');
+        $words = Word::all();
+
+        return view('guest.home', compact('words'));
+    }
+
+    public function show(Word $word)
+    {
+
+        return view('guest.words.show', compact('word'));
     }
 }

@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', GuestHomeController::class)->name('guest.home');
-
+Route::get('/words/{word}', [GuestHomeController::class, 'show'])->name('guest.words.show');
 
 
 
