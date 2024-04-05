@@ -17,8 +17,9 @@ class WordController extends Controller
     public function index()
     {
         $words = Word::all();
+        $tags = Tag::all();
 
-        return view('admin.words.index', compact('words'));
+        return view('admin.words.index', compact('words', 'tags'));
     }
 
     /**

@@ -13,9 +13,17 @@
                 <div class="col-6">
                     <div class="card">
                         <div class="card-body">
-                            <div class="d-flex justify-content-between pb-4">
+                            <div class="d-flex justify-content-between">
                                 <h5 class="card-title">{{ $word->word_name }}</h5>
                                 <a href="{{ route('guest.words.show', $word) }}" class="btn btn-sm btn-primary">VEDI</a>
+                            </div>
+                            <div class="pb-2">
+                                @forelse($word->tags as $tag)
+                                    <span class="badge rounded-pill"
+                                        style="background-color: {{ $tag->color }}">{{ $tag->label }}</span>
+                                @empty
+                                    N/A
+                                @endforelse
                             </div>
                             <p class="card-text">
                                 {{ $word->getAbstract() }}

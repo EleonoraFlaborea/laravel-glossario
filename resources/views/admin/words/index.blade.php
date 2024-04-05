@@ -12,6 +12,7 @@
                 <tr class="align-middle">
                     <th scope="col">#</th>
                     <th scope="col">Word</th>
+                    <th scope="col">Tags</th>
                     <th scope="col">Description</th>
                     <th scope="col">Created At</th>
                     <th scope="col">Updated At</th>
@@ -28,6 +29,14 @@
                     <tr>
                         <th scope="row">{{ $word->id }}</th>
                         <td>{{ $word->word_name }}</td>
+                        <td>
+                            @forelse($word->tags as $tag)
+                                <span class="badge rounded-pill"
+                                    style="background-color: {{ $tag->color }}">{{ $tag->label }}</span>
+                            @empty
+                                N/A
+                            @endforelse
+                        </td>
                         <td class="w-50">{{ $word->getAbstract() }} <a
                                 href="{{ route('admin.words.show', $word) }}">[...]</a></td>
                         <td>{{ $word->getFormattedDate('created_at') }}</td>
@@ -55,7 +64,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="6">
+                        <td colspan="7">
                             <h3 class="text-center">Non ci sono parole da mostrare!</h3>
                         </td>
                     </tr>
