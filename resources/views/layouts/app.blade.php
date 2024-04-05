@@ -48,10 +48,11 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ url('/') }}">{{ __('Home') }}</a>
                         </li>
-                        @auth                    
-                        <li class="nav-item">
-                            <a class="nav-link @if(Request::is('admin/words*')) active @endif" href="{{route('admin.words.index') }}">Parole</a>
-                        </li>
+                        @auth
+                            <li class="nav-item">
+                                <a class="nav-link @if (Request::is('admin/words*')) active @endif"
+                                    href="{{ route('admin.words.index') }}">Parole</a>
+                            </li>
                         @endauth
                     </ul>
 
@@ -95,9 +96,15 @@
         </nav>
 
         <main class="">
+            {{-- @include('includes.alerts') --}}
             @yield('content')
         </main>
     </div>
+
+    @include('includes.modal')
+    {{-- @include('includes.toast') --}}
+
+    @yield('scripts')
 </body>
 
 </html>
