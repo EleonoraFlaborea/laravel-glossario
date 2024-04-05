@@ -18,35 +18,7 @@
             <label for="slug">Slug</label>
             <input type="text" id="slug" class="form-control my-2" value="{{Str::slug(old('word_name', $word->word_name))}}" disabled >
         </div> --}}
-        
-        <div class="col-12">
-            {{-- <label for="links">Seleziona i link usati:</label> --}}
-            <div class="form-group row">
-                {{-- <label for="fonte">Inserisci parola</label> --}}
-                <div class="col-6">
-                    <label class="form-check-label" for="nome-fonte">Inserisci il nome della fonte</label> 
-                    <input id="nome-fonte" class="form-control my-2" type="text" name="name_links[]">
-                </div>
-                <div class="col-6">
-                    <label class="form-check-label" for="url-fonte">Inserisci il link della fonte</label> 
-                    <input id="url-fonte" class="form-control my-2" type="text" name="urls[]">
-                </div>
-                <div class="col-6">
-                    <label class="form-check-label" for="nome-fonte">Inserisci il nome della fonte</label> 
-                    <input id="nome-fonte" class="form-control my-2" type="text" name="name_links[]">
-                </div>
-                <div class="col-6">
-                    <label class="form-check-label" for="url-fonte">Inserisci il link della fonte</label> 
-                    <input id="url-fonte" class="form-control my-2" type="text" name="urls[]">
-                </div>
-            </div>
-            {{-- @foreach ($links as $link)
-            <div class="form-check form-check-inline" id="links">
-                <input class="form-check-input" type="checkbox" id="{{"link-$link->id"}}" value="{{$link->id}}" name="links[]" @if (in_array($link->id, old('links', $old_links ?? []))) checked @endif>
-                <label class="form-check-label" for="{{"link-$link->id"}}">{{$link->name}}</label>                    
-            </div>
-            @endforeach --}}
-        </div>
+
         {{-- Input description --}}
         <div class="col-12">
             <div class="form-group">
@@ -59,6 +31,35 @@
                 @enderror --}}
             </div>
         </div>
+        
+        <div class="col-12">       
+            <div id="new-link-button" class="btn btn-primary" role="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample">
+                Toggle width collapse
+            </div>            
+            {{-- <div style="min-height: 120px;">
+              <div class="collapse collapse-horizontal" id="collapseWidthExample">
+                <div class="row" style="width: 600px;">
+                  <div class="col-6">
+                      <label class="form-check-label" for="nome-fonte">Inserisci il nome della fonte</label> 
+                      <input id="nome-fonte" class="form-control my-2" type="text" name="name_links[]">
+                  </div>
+                  <div class="col-6">
+                      <label class="form-check-label" for="url-fonte">Inserisci il link della fonte</label> 
+                      <input id="url-fonte" class="form-control my-2" type="text" name="urls[]">
+                  </div>
+                </div>
+              </div>
+            </div> --}}
+            <div id="test">
+                
+            </div>
+            {{-- @foreach ($links as $link)
+            <div class="form-check form-check-inline" id="links">
+                <input class="form-check-input" type="checkbox" id="{{"link-$link->id"}}" value="{{$link->id}}" name="links[]" @if (in_array($link->id, old('links', $old_links ?? []))) checked @endif>
+                <label class="form-check-label" for="{{"link-$link->id"}}">{{$link->name}}</label>                    
+            </div>
+            @endforeach --}}
+        </div>
     </div>
     <div class="d-flex justify-content-between my-4">
         <a href="{{route('admin.words.index')}}" class="btn btn-outline-secondary"><i class="far fa-hand-point-left me-2"></i>Torna indietro</a>
@@ -68,3 +69,26 @@
         </div>
     </div>
 </form>
+
+{{-- Script --}}
+<script>
+const newLinkButton = document.getElementById('new-link-button');
+const test = document.getElementById('test');
+let count = 0;
+newLinkButton.addEventListener('click', event =>{
+    event.preventDefault()
+    const newInput = document.createElement('div');
+    count++;
+    newInput.classList.add('row');
+    newInput.innerHTML=`
+        <div class="col-6">
+            <label class="form-check-label" for="nome-fonte-${count}">Inserisci il nome della fonte</label> 
+            <input id="nome-fonte-${count}" class="form-control my-2" type="text" name="name_links[]">
+        </div>
+        <div class="col-6">
+            <label class="form-check-label" for="url-fonte-${count}">Inserisci il link della fonte</label> 
+            <input id="url-fonte-${count}" class="form-control my-2" type="text" name="urls[]">
+        </div>`;
+    test.appendChild(newInput);
+});
+</script>

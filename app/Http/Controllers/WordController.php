@@ -42,7 +42,7 @@ class WordController extends Controller
                 'description' => 'required|string',
                 // 'links' => 'nullable',
                 // 'name_link' => 'required|string',url:http,https
-                'urls' => 'required|string|unique:links',
+                // 'urls' => 'required|string|unique:links',
             ],
             [
                 'word_name.required' => 'La parola è obbligatoria',
@@ -61,8 +61,8 @@ class WordController extends Controller
         $new_word = new Word();
         $new_word->fill($data);
         $new_word->save();
+        // dd($data);
         $length = count($data['urls']);
-        // dd($length, $data);
         for ($i = 0; $i < $length; $i++) {
             if ($data['name_links'][$i] && $data['urls'][$i]) {
                 $new_link = new Link();
