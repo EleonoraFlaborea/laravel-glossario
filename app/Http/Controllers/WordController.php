@@ -64,14 +64,16 @@ class WordController extends Controller
         $new_word = new Word();
         $new_word->fill($data);
         $new_word->save();
-        $length = count($data['urls']);
-        for ($i = 0; $i < $length; $i++) {
-            if ($data['name_links'][$i] && $data['urls'][$i]) {
-                $new_link = new Link();
-                $new_link->name = $data['name_links'][$i];
-                $new_link->url = $data['urls'][$i];
-                $new_link->word_id = $new_word->id;
-                $new_link->save();
+        if ($data['urls']) {
+            $length = count($data['urls']);
+            for ($i = 0; $i < $length; $i++) {
+                if ($data['name_links'][$i] && $data['urls'][$i]) {
+                    $new_link = new Link();
+                    $new_link->name = $data['name_links'][$i];
+                    $new_link->url = $data['urls'][$i];
+                    $new_link->word_id = $new_word->id;
+                    $new_link->save();
+                }
             }
         }
         return to_route('admin.words.show', $new_word);
@@ -124,14 +126,16 @@ class WordController extends Controller
         $word->fill($data);
 
         $word->save();
-        $length = count($data['urls']);
-        for ($i = 0; $i < $length; $i++) {
-            if ($data['name_links'][$i] && $data['urls'][$i]) {
-                $new_link = new Link();
-                $new_link->name = $data['name_links'][$i];
-                $new_link->url = $data['urls'][$i];
-                $new_link->word_id = $word->id;
-                $new_link->save();
+        if ($data['urls']) {
+            $length = count($data['urls']);
+            for ($i = 0; $i < $length; $i++) {
+                if ($data['name_links'][$i] && $data['urls'][$i]) {
+                    $new_link = new Link();
+                    $new_link->name = $data['name_links'][$i];
+                    $new_link->url = $data['urls'][$i];
+                    $new_link->word_id = $word->id;
+                    $new_link->save();
+                }
             }
         }
         return to_route('admin.words.show', $word)->with('message', 'Parola modificata con successo')->with('type', 'success');
@@ -145,12 +149,12 @@ class WordController extends Controller
         $word->delete();
 
         return to_route('admin.words.index')
-        ->with('toast-button-type', 'danger')
-        ->with('toast-message', 'Progetto eliminato')
-        ->with('toast-label', config('app.name'))
-        ->with('toast-method', 'PATCH')
-        // ->with('toast-route', route('admin.words.restore', $project->id))
-        ->with('toast-route', 'NADA')
-        ->with('toast-button-label', 'Annulla');
+            ->with('toast-button-type', 'danger')
+            ->with('toast-message', 'Progetto eliminato')
+            ->with('toast-label', config('app.name'))
+            ->with('toast-method', 'PATCH')
+            // ->with('toast-route', route('admin.words.restore', $project->id))
+            ->with('toast-route', 'NADA')
+            ->with('toast-button-label', 'Annulla');
     }
 }

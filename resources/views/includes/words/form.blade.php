@@ -71,26 +71,28 @@
 </form>
 
 {{-- Script --}}
+@section('scripts')    
 <script>
-const newLinkButton = document.getElementById('new-link-button');
-const inputLink = document.getElementById('input-link');
-let count = 0;
-newLinkButton.addEventListener('click', event =>{
+    const newLinkButton = document.getElementById('new-link-button');
+    const inputLink = document.getElementById('input-link');
+    let count = 0;
+    newLinkButton.addEventListener('click', event =>{
     event.preventDefault()
     const newInput = document.createElement('div');
     count++;
     newInput.classList.add('row', 'my-3');
     newInput.innerHTML=`
-        <div class="col-6">
-            <label class="form-check-label" for="nome-fonte-${count}">Inserisci il nome della fonte</label> 
-            <input id="nome-fonte-${count}"  class="form-control my-2" type="text" name="name_links[]">
-        </div>
-        <div class="col-6">
-            <label class="form-check-label" for="url-fonte-${count}">Inserisci il link della fonte</label> 
-            <input id="url-fonte-${count}" class="form-control my-2" type="text" name="urls[]">
+    <div class="col-6">
+        <label class="form-check-label" for="nome-fonte-${count}">Inserisci il nome della fonte</label> 
+        <input id="nome-fonte-${count}"  class="form-control my-2" type="text" name="name_links[]">
+    </div>
+    <div class="col-6">
+        <label class="form-check-label" for="url-fonte-${count}">Inserisci il link della fonte</label> 
+        <input id="url-fonte-${count}" class="form-control my-2" type="text" name="urls[]">
         </div>`;
     inputLink.appendChild(newInput);
-});
+    });
 </script>
+@endsection
 
 {{-- @dd($errors) --}}
