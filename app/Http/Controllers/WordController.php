@@ -7,6 +7,7 @@ use App\Models\Word;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules\Exists;
 
 class WordController extends Controller
 {
@@ -39,7 +40,9 @@ class WordController extends Controller
             [
                 'word_name' => 'required|string|min:1|max:50|unique:words',
                 'description' => 'required|string',
-                'links' => 'nullable|exists:links,id'
+                // 'links' => 'nullable',
+                // 'name_link' => 'required|string',url:http,https
+                'urls' => 'required|string|unique:links',
             ],
             [
                 'word_name.required' => 'La parola è obbligatoria',
@@ -47,19 +50,31 @@ class WordController extends Controller
                 'word_name.max' => 'La parola deve essere massimo di :max caratteri',
                 'word_name.min' => 'La parola deve essere minimo più di :min caratteri',
                 'description.required' => 'La descrizione è obbligatoria',
-                'links.exists' => 'Il link usato non è contemplato'
+                // 'name_link.required' => 'Dai un nome alla fonte',
+                // 'url.required' => 'Devi mettere un link per le fonti',
+                // 'url.unique' => 'Fonte già usata',
+
             ]
         );
         $data = $request->all();
-        // @dd($data['links']);
+        // @dd($data);
         $new_word = new Word();
         $new_word->fill($data);
         $new_word->save();
-        foreach ($data['links'] as $id_link) {
-            $ob_link = Link::whereId($id_link)->first();
-            $ob_link->word_id = $new_word->id;
-            $ob_link->save();
+        $length = count($data['urls']);
+        // dd($length, $data);
+        for ($i = 0; $i < $length; $i++) {
+            if ($data['name_links'][$i] && $data['urls'][$i]) {
+                $new_link = new Link();
+                $new_link->name = $data['name_links'][$i];
+                $new_link->url = $data['urls'][$i];
+                $new_link->word_id = $new_word->id;
+                $new_link->save();
+            }
         }
+        // foreach ($data['urls'] as $url) {
+        //     $n
+        // }
         return to_route('admin.words.show', $new_word);
     }
 
@@ -104,10 +119,13 @@ class WordController extends Controller
         $word->fill($data);
 
         $word->save();
-        foreach ($data['links'] as $id_link) {
-            $ob_link = Link::whereId($id_link)->first();
-            $ob_link->word_id = $word->id;
-            $ob_link->save();
+        if (Arr::exists($data, 'links')) {
+            foreach ($data['links'] as $id_link) {
+
+                $ob_link = Link::whereId($id_link)->first();
+                $ob_link->word_id = $word->id;
+                $ob_link->save();
+            }
         }
         return to_route('admin.words.show', $word)->with('message', 'Parola modificata con successo')->with('type', 'success');
     }

@@ -20,14 +20,32 @@
         </div> --}}
         
         <div class="col-12">
-            <label for="links">Seleziona i link usati:</label>
-            
-            @foreach ($links as $link)
+            {{-- <label for="links">Seleziona i link usati:</label> --}}
+            <div class="form-group row">
+                {{-- <label for="fonte">Inserisci parola</label> --}}
+                <div class="col-6">
+                    <label class="form-check-label" for="nome-fonte">Inserisci il nome della fonte</label> 
+                    <input id="nome-fonte" class="form-control my-2" type="text" name="name_links[]">
+                </div>
+                <div class="col-6">
+                    <label class="form-check-label" for="url-fonte">Inserisci il link della fonte</label> 
+                    <input id="url-fonte" class="form-control my-2" type="text" name="urls[]">
+                </div>
+                <div class="col-6">
+                    <label class="form-check-label" for="nome-fonte">Inserisci il nome della fonte</label> 
+                    <input id="nome-fonte" class="form-control my-2" type="text" name="name_links[]">
+                </div>
+                <div class="col-6">
+                    <label class="form-check-label" for="url-fonte">Inserisci il link della fonte</label> 
+                    <input id="url-fonte" class="form-control my-2" type="text" name="urls[]">
+                </div>
+            </div>
+            {{-- @foreach ($links as $link)
             <div class="form-check form-check-inline" id="links">
                 <input class="form-check-input" type="checkbox" id="{{"link-$link->id"}}" value="{{$link->id}}" name="links[]" @if (in_array($link->id, old('links', $old_links ?? []))) checked @endif>
                 <label class="form-check-label" for="{{"link-$link->id"}}">{{$link->name}}</label>                    
             </div>
-            @endforeach
+            @endforeach --}}
         </div>
         {{-- Input description --}}
         <div class="col-12">

@@ -15,8 +15,8 @@ return new class extends Migration
         Schema::create('links', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Word::class)->nullable()->constrained()->nullOnDelete();
-            $table->string('name', 15);
-            $table->string('url')->unique();
+            $table->string('name', 15)->nullable();
+            $table->string('url')->nullable()->unique();
             $table->timestamps();
         });
     }
