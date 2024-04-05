@@ -51,10 +51,12 @@
                                 <a href="{{ route('admin.words.edit', $word) }}" class="btn btn-sm btn-warning">
                                     <i class="fas fa-pencil"></i>
                                 </a>
-                                <form action="{{ route('admin.words.destroy', $word->id) }}" method="POST">
+                                {{-- Pulsante elimina --}}
+                                <form action="{{ route('admin.words.destroy', $word->id) }}" method="POST"
+                                    class="delete-form">
                                     @csrf
                                     @method('DELETE')
-                                    <button class="btn btn-sm btn-danger">
+                                    <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#modal">
                                         <i class="fas fa-trash-can"></i>
                                     </button>
 
@@ -72,4 +74,8 @@
             </tbody>
         </table>
     </div>
+@endsection
+
+@section('scripts')
+    @vite('resources/js/delete_confirmation.js')
 @endsection
