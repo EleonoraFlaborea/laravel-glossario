@@ -19,7 +19,6 @@ class DatabaseSeeder extends Seeder
             'email' => 'eleonora@example.com',
         ]);
 
-        $this->call(LinkSeeder::class);
-        $this->call(TagSeeder::class);
+        $this->call([LinkSeeder::class, TagSeeder::class]);
     }
 }
