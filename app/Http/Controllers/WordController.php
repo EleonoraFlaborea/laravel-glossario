@@ -121,6 +121,14 @@ class WordController extends Controller
     public function destroy(Word $word)
     {
         $word->delete();
-        return to_route('admin.words.index')->with('type', 'danger')->with('message', 'Post eliminato con successo');
+
+        return to_route('admin.words.index')
+        ->with('toast-button-type', 'danger')
+        ->with('toast-message', 'Progetto eliminato')
+        ->with('toast-label', config('app.name'))
+        ->with('toast-method', 'PATCH')
+        // ->with('toast-route', route('admin.words.restore', $project->id))
+        ->with('toast-route', 'NADA')
+        ->with('toast-button-label', 'Annulla');
     }
 }

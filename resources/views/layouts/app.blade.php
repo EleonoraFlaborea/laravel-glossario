@@ -102,7 +102,7 @@
     </div>
 
     @include('includes.modal')
-    {{-- @include('includes.toast') --}}
+    @include('includes.toast')
 
     @yield('scripts')
 </body>

@@ -1,4 +1,4 @@
-{{-- @session('toast-message')
+@session('toast-message')
     <div class="toast-container position-fixed bottom-0 end-0 p-3">
         <div id="liveToast" class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
             <div class="toast-header">
@@ -35,4 +35,4 @@
     if (toast) setTimeout(() => {
         toast.classList.remove('show')
     }, 5000);
-</script> --}}
+</script>
