@@ -12,12 +12,14 @@
                 <tr class="align-middle">
                     <th scope="col">#</th>
                     <th scope="col">Word</th>
+                    <th scope="col">Tags</th>
                     <th scope="col">Description</th>
                     <th scope="col">Created At</th>
                     <th scope="col">Updated At</th>
                     <th scope="col">
                         <div class="text-center">
-                            <a href="{{route('admin.words.create')}}" class="btn btn-success"><i class="fas fa-plus"></i> Nuovo</a>
+                            <a href="{{ route('admin.words.create') }}" class="btn btn-success"><i class="fas fa-plus"></i>
+                                Nuovo</a>
                         </div>
                     </th>
                 </tr>
@@ -27,7 +29,16 @@
                     <tr>
                         <th scope="row">{{ $word->id }}</th>
                         <td>{{ $word->word_name }}</td>
-                        <td class="w-50">{{ $word->getAbstract() }} <a href="{{ route('admin.words.show', $word) }}">[...]</a></td>
+                        <td>
+                            @forelse($word->tags as $tag)
+                                <span class="badge rounded-pill"
+                                    style="background-color: {{ $tag->color }}">{{ $tag->label }}</span>
+                            @empty
+                                N/A
+                            @endforelse
+                        </td>
+                        <td class="w-50">{{ $word->getAbstract() }} <a
+                                href="{{ route('admin.words.show', $word) }}">[...]</a></td>
                         <td>{{ $word->getFormattedDate('created_at') }}</td>
                         <td>{{ $word->getFormattedDate('updated_at') }}</td>
                         <td>
@@ -53,7 +64,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="6">
+                        <td colspan="7">
                             <h3 class="text-center">Non ci sono parole da mostrare!</h3>
                         </td>
                     </tr>
