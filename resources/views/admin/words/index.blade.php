@@ -17,7 +17,8 @@
                     <th scope="col">Updated At</th>
                     <th scope="col">
                         <div class="text-center">
-                            <a href="{{route('admin.words.create')}}" class="btn btn-success"><i class="fas fa-plus"></i> Nuovo</a>
+                            <a href="{{ route('admin.words.create') }}" class="btn btn-success"><i class="fas fa-plus"></i>
+                                Nuovo</a>
                         </div>
                     </th>
                 </tr>
@@ -27,7 +28,8 @@
                     <tr>
                         <th scope="row">{{ $word->id }}</th>
                         <td>{{ $word->word_name }}</td>
-                        <td class="w-50">{{ $word->getAbstract() }} <a href="{{ route('admin.words.show', $word) }}">[...]</a></td>
+                        <td class="w-50">{{ $word->getAbstract() }} <a
+                                href="{{ route('admin.words.show', $word) }}">[...]</a></td>
                         <td>{{ $word->getFormattedDate('created_at') }}</td>
                         <td>{{ $word->getFormattedDate('updated_at') }}</td>
                         <td>
