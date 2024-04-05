@@ -26,4 +26,9 @@ class Word extends Model
     {
         return $this->hasMany(Link::class);
     }
+
+    public function tags() 
+    {
+        return $this->belongsToMany(Tag::class);
+    }
 }
