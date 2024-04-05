@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Word;
+use App\Models\Tag;
 
 class TagSeeder extends Seeder
 {
@@ -34,8 +35,8 @@ class TagSeeder extends Seeder
 
             $new_tag->save();
 
-            $tag_word = array_filter($words_ids, fn () => rand(0,1));
-            $new_tag->tags()->attach($tag_word);
+            $tag_word = array_filter($word_ids, fn () => rand(0,1));
+            $new_tag->words()->attach($tag_word);
         }
     }
 }
