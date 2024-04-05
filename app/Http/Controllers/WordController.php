@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Link;
 use App\Models\Word;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Validation\Rule;
@@ -68,7 +69,8 @@ class WordController extends Controller
      */
     public function show(Word $word)
     {
-        return view('admin.words.show', compact('word'));
+        $tags = Tag::all();
+        return view('admin.words.show', compact('word', 'tags'));
     }
 
     /**
