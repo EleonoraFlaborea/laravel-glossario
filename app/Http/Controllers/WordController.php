@@ -64,7 +64,7 @@ class WordController extends Controller
         $new_word = new Word();
         $new_word->fill($data);
         $new_word->save();
-        if ($data['urls']) {
+        if (array_key_exists('urls', $data)) {
             $length = count($data['urls']);
             for ($i = 0; $i < $length; $i++) {
                 if ($data['name_links'][$i] && $data['urls'][$i]) {
@@ -126,7 +126,8 @@ class WordController extends Controller
         $word->fill($data);
 
         $word->save();
-        if ($data['urls']) {
+
+        if (array_key_exists('urls', $data)) {
             $length = count($data['urls']);
             for ($i = 0; $i < $length; $i++) {
                 if ($data['name_links'][$i] && $data['urls'][$i]) {

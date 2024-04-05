@@ -16,11 +16,6 @@
                 @enderror
             </div>
         </div>
-        {{-- Slug
-        <div class="col-6">
-            <label for="slug">Slug</label>
-            <input type="text" id="slug" class="form-control my-2" value="{{Str::slug(old('word_name', $word->word_name))}}" disabled >
-        </div> --}}
 
         {{-- Input description --}}
         <div class="col-12">
@@ -36,7 +31,7 @@
         </div>
         
         <div class="col-12">       
-            <button id="new-link-button" class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample">
+            <button id="new-link-button" class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target=".multi-collapse">
                 Inserisci link 
             </button>
             <div class="@error('urls.*') is-invalid @elseif(old('urls.*', '')) is-valid @enderror"></div>            
@@ -77,20 +72,20 @@
     const inputLink = document.getElementById('input-link');
     let count = 0;
     newLinkButton.addEventListener('click', event =>{
-    event.preventDefault()
-    const newInput = document.createElement('div');
-    count++;
-    newInput.classList.add('row', 'my-3');
-    newInput.innerHTML=`
-    <div class="col-6">
-        <label class="form-check-label" for="nome-fonte-${count}">Inserisci il nome della fonte</label> 
-        <input id="nome-fonte-${count}"  class="form-control my-2" type="text" name="name_links[]">
-    </div>
-    <div class="col-6">
-        <label class="form-check-label" for="url-fonte-${count}">Inserisci il link della fonte</label> 
-        <input id="url-fonte-${count}" class="form-control my-2" type="text" name="urls[]">
-        </div>`;
-    inputLink.appendChild(newInput);
+        event.preventDefault()
+        const newInput = document.createElement('div');
+        count++;
+        newInput.classList.add('row', 'my-3');
+        newInput.innerHTML=`
+            <div class="col-6">
+                <label class="form-check-label " for="nome-fonte-${count}">Inserisci il nome della fonte</label> 
+                <input id="nome-fonte-${count}"  class="form-control my-2" type="text" name="name_links[]">
+            </div>
+            <div class="col-6">
+                <label class="form-check-label " for="url-fonte-${count}">Inserisci il link della fonte</label> 
+                <input id="url-fonte-${count}" class="form-control my-2" type="text" name="urls[]">
+            </div>`;
+        inputLink.appendChild(newInput);
     });
 </script>
 @endsection
