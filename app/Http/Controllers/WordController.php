@@ -102,12 +102,15 @@ class WordController extends Controller
      */
     public function update(Request $request, Word $word)
     {
+        // dd($word->links);
         $request->validate([
             'word_name' => ['required', 'string', 'min:1', 'max:50', Rule::unique('words')->ignore($word->id)],
             'description' => 'required|string',
             'name_links' => 'nullable|array',
             'links.*.name' => 'nullable|string',
-            'links.*.url' => 'nullable|url:http,https|unique:links,url',
+            // 'links.*.url' => ['nullable', 'url', Rule::unique('links,url')->ignore($word->links->word_id)],
+            // 'nullable|url:http,https|unique:links,url',
+            // ['nullable', 'url', Rule::unique('links,url')->ignore($word->links->id)],
         ], [
             'word_name.required' => 'La parola è obbligatorio',
             'word_name.unique' => 'La parola è già presente',
@@ -119,19 +122,29 @@ class WordController extends Controller
         ]);
 
         $data = $request->all();
-
         $word->fill($data);
 
         $word->save();
 
         if (array_key_exists('links', $data)) {
-            foreach ($data['links'] as $link) {
-                if ($link['name'] && $link['url']) {
-                    $new_link = new Link();
-                    $new_link->name = $link['name'];
-                    $new_link->url = $link['url'];
-                    $new_link->word_id = $word->id;
-                    $new_link->save();
+            $input_links = $data['links'];
+            for ($i = 0; $i < count($input_links); $i++) {
+                $link = $input_links["link-$i"];
+                if ($i < count($word->links)) {
+                    if (!$link['name'] && !$link['url']) $word->links[$i]->delete();
+                    if ($link['name'] && $link['url']) {
+                        $word->links[$i]->name = $link['name'];
+                        $word->links[$i]->url = $link['url'];
+                        $word->links[$i]->save();
+                    }
+                } else {
+                    if ($link['name'] && $link['url']) {
+                        $new_link = new Link();
+                        $new_link->name = $link['name'];
+                        $new_link->url = $link['url'];
+                        $new_link->word_id = $word->id;
+                        $new_link->save();
+                    }
                 }
             }
         }
