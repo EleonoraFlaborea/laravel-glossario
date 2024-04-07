@@ -34,8 +34,8 @@
             <button id="new-link-button" class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target=".multi-collapse">
                 Inserisci link 
             </button>
-            <div class="@error('urls.*') is-invalid @elseif(old('urls.*', '')) is-valid @enderror"></div>            
-            @error('urls.*')            
+            <div class="@error('links.*') is-invalid @elseif(old('links.*', '')) is-valid @enderror"></div>            
+            @error('links.*')            
                 <div class="invalid-feedback">{{$message}}</div>
             @enderror            
             <div id="input-link"></div>
@@ -79,11 +79,11 @@
         newInput.innerHTML=`
             <div class="col-6">
                 <label class="form-check-label " for="nome-fonte-${count}">Inserisci il nome della fonte</label> 
-                <input id="nome-fonte-${count}"  class="form-control my-2" type="text" name="name_links[]">
+                <input id="nome-fonte-${count}"  class="form-control my-2" type="text" name="links[link-${count}][name]">
             </div>
             <div class="col-6">
                 <label class="form-check-label " for="url-fonte-${count}">Inserisci il link della fonte</label> 
-                <input id="url-fonte-${count}" class="form-control my-2" type="text" name="urls[]">
+                <input id="url-fonte-${count}" class="form-control my-2" type="text" name="links[link-${count}][url]">
             </div>`;
         inputLink.appendChild(newInput);
     });
