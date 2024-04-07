@@ -108,6 +108,7 @@ class WordController extends Controller
             'description' => 'required|string',
             'name_links' => 'nullable|array',
             'links.*.name' => 'nullable|string',
+            // 'links.*.url' => 'nullable|url:http,https|unique:links,url',
             // 'links.*.url' => ['nullable', 'url', Rule::unique('links,url')->ignore($word->links->word_id)],
             // 'nullable|url:http,https|unique:links,url',
             // ['nullable', 'url', Rule::unique('links,url')->ignore($word->links->id)],
