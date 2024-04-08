@@ -78,7 +78,7 @@ class WordController extends Controller
         // Creo il legame con possibili tags
         if (Arr::exists($data, 'tags')) $new_word->tags()->sync($data['tags']);
 
-        return to_route('admin.words.show', $new_word)->with('message', 'Parola creata con successo')->with('type', 'success');
+        return to_route('admin.words.index', $new_word)->with('message', 'Parola creata con successo')->with('type', 'success');
     }
 
     /**
@@ -145,7 +145,7 @@ class WordController extends Controller
         if (Arr::exists($data, 'tags')) $word->tags()->sync($data['tags']);
         elseif (!Arr::exists($data, 'tags') && $word->has('tags')) $word->tags()->detach();
 
-        return to_route('admin.words.show', $word)->with('message', 'Parola modificata con successo')->with('type', 'success');
+        return to_route('admin.words.index', $word)->with('message', 'Parola modificata con successo')->with('type', 'success');
     }
 
     /**
