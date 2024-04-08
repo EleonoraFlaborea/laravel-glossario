@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\HomeController as AdminHomeController;
 use App\Http\Controllers\Guest\HomeController as GuestHomeController;
+use App\Http\Controllers\LinkController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\WordController;
 use Illuminate\Support\Facades\Route;
@@ -37,7 +38,10 @@ Route::delete('/admin/words/{word}', [WordController::class, 'destroy'])->name('
 // Rotta per salvataggio della modifica su db
 Route::put('/admin/words/{word}/', [WordController::class, 'update'])->name('admin.words.update');
 
-
+// Rotte per i link
+Route::prefix('/admin')->name('admin.')->group(function () {
+    Route::resource('/links', LinkController::class);
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(Word::class)->nullable()->constrained()->nullOnDelete();
             $table->string('name', 15)->nullable();
-            $table->string('url')->nullable()->unique();
+            $table->string('url')->nullable();
             $table->timestamps();
         });
     }
