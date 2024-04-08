@@ -6,7 +6,7 @@
     <div class="container">
 
         <header class="d-flex align-items-center justify-content-between flex-column py-3">
-            <h1 class="m-0">Words</h1>
+            <h1 class="m-0">Glossario</h1>
             <div class="d-flex justify-content-between w-100">
                 <div class="text-center">
                     <a href="{{ route('admin.words.create') }}" class="btn btn-success"><i class="fas fa-plus"></i>
