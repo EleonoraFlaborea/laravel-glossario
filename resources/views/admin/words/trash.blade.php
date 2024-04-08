@@ -36,11 +36,11 @@
             <thead>
                 <tr class="align-middle">
                     <th scope="col">#</th>
-                    <th scope="col">Word</th>
-                    <th scope="col">Tags</th>
-                    <th scope="col">Description</th>
-                    <th scope="col">Created At</th>
-                    <th scope="col">Updated At</th>
+                    <th scope="col">Parola</th>
+                    <th scope="col">Tag</th>
+                    <th scope="col">Descrizione</th>
+                    <th scope="col">Creato il</th>
+                    <th scope="col">Modificato il</th>
                     <th scope="col">
                     </th>
                 </tr>
