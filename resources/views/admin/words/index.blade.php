@@ -1,14 +1,14 @@
 @extends('layouts.app')
 
-@section('title', 'Words List')
+@section('title', 'Parole')
 
 @section('content')
-    <div class="container">
+    <div class="container pb-5">
 
-        <header class="d-flex align-items-center justify-content-between flex-column py-3">
-            <h1 class="m-0">Glossario</h1>
+        <header class="pb-3 text-center">
+            <h1 class="m-0 py-3">GLOSSARIO</h1>
             <div class="d-flex justify-content-between w-100">
-                <div class="text-center">
+                <div>
                     <a href="{{ route('admin.words.create') }}" class="btn btn-success"><i class="fas fa-plus"></i>
                         Aggiungi Nuova Parola</a>
                 </div>

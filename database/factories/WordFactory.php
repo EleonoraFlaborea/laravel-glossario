@@ -17,7 +17,7 @@ class WordFactory extends Factory
     public function definition(): array
     {
         return [
-            'word_name' => fake()->word(),
+            'word_name' => ucfirst(fake()->word()),
             'description' => fake()->paragraph(20, true),
         ];
     }
