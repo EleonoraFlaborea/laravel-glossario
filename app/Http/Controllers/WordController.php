@@ -192,7 +192,7 @@ class WordController extends Controller
             foreach($words as $word){
                 $word->restore();
             }
-            return to_route('admin.words.trash')->with('type', 'success')->with('message', 'Tutti i progetti sono stati ripristinati con successo');
+            return to_route('admin.words.index')->with('type', 'success')->with('message', 'Tutti i progetti sono stati ripristinati con successo');
         }
     
 }
