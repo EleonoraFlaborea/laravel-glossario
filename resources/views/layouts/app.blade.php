@@ -60,9 +60,16 @@
                                 <a class="nav-link @if (Request::is('admin/words*')) active @endif"
                                     href="{{ route('admin.words.index') }}">Parole</a>
                             </li>
+
+
+                             <li class="nav-item">
+                                <a class="nav-link @if (Request::is('admin/tags*')) active @endif"
+                                    href="{{ route('admin.tags.index') }}">Tags</a>
+
                             <li class="nav-item">
                                 <a class="nav-link @if (Request::is('admin/links*')) active @endif"
                                     href="{{ route('admin.links.index') }}">Link</a>
+
                             </li>
                         @endauth
                     </ul>

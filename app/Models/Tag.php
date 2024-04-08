@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
+
 
 class Tag extends Model
 {
@@ -12,5 +14,10 @@ class Tag extends Model
     public function words() 
     {
         return $this->belongsToMany(Word::class);
+    }
+
+    public function getFormattedDate($column, $format = 'd/m/y h:i:s')
+    {
+        return Carbon::create($this->$column)->format($format);
     }
 }
