@@ -1,4 +1,5 @@
 const deleteForms = document.querySelectorAll('.delete-form');
+const restoreForms = document.querySelectorAll('.restore-form');
 const modal = document.getElementById('modal');
 const modalBody = document.querySelector('.modal-body');
 const modalTitle = document.querySelector('.modal-title');
@@ -14,8 +15,21 @@ deleteForms.forEach(form => {
 
         confirmationButton.innerText = 'Conferma Elimina';
         confirmationButton.className = 'btn btn-danger';
-        modalTitle.innerText = 'Elimina progetto';
+        modalTitle.innerText = 'Elimina parola';
         modalBody.innerText = 'Sei sicuro di voler procedere all\'eliminazione?';
+    })
+})
+
+restoreForms.forEach(form => {
+    form.addEventListener('submit', e => {
+        e.preventDefault();
+
+        activeForm = form;
+
+        confirmationButton.innerText = 'Conferma Ripristina';
+        confirmationButton.className = 'btn btn-success';
+        modalTitle.innerText = 'Ripristina parola';
+        modalBody.innerText = 'Sei sicuro di voler procedere al ripristino della parola?';
     })
 })
 

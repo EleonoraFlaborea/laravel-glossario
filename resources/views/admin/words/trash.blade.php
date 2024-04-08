@@ -24,8 +24,7 @@
                     <form action="{{ route('admin.words.massiverestore') }}" method="POST" class="restore-form">
                         @csrf
                         @method('PATCH')
-                        {{-- <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modal"> --}}
-                        <button class="btn btn-success" type="submit">
+                        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modal">
                             <i class="fas fa-arrows-rotate me-2"></i>Ripristina tutto</a>
                         </button>
                     </form>
@@ -88,7 +87,8 @@
                                     class="restore-form">
                                     @csrf
                                     @method('PATCH')
-                                    <button type="submit" class="btn btn-sm btn-success">
+                                    <button type="submit" class="btn btn-sm btn-success" data-bs-toggle="modal"
+                                        data-bs-target="#modal">
                                         <i class="fas fa-arrows-rotate"></i>
                                     </button>
                                 </form>
@@ -110,13 +110,4 @@
 
 @section('scripts')
     @vite('resources/js/delete_confirmation.js')
-    {{-- <script>
-        const deleteAllButton = document.getElementById('delete-all-button');
-        const deleteButtons = document.querySelectorAll('.delete-form');
-        deleteAllButton.addEventListener('click', () => {
-            deleteButtons.forEach(form => {
-                form.submit();
-            });
-        });
-    </script> --}}
 @endsection
