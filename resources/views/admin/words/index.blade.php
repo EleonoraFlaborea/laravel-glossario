@@ -6,7 +6,7 @@
     <div class="container pb-5">
 
         <header class="pb-3 text-center">
-            <h1 class="m-0 py-3">GLOSSARIO</h1>
+            <h1 class="m-0 py-3">PAROLE</h1>
             <div class="d-flex justify-content-between w-100">
                 <div>
                     <a href="{{ route('admin.words.create') }}" class="btn btn-success"><i class="fas fa-plus"></i>

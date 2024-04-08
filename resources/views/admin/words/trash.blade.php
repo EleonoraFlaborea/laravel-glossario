@@ -9,8 +9,8 @@
             <div class="d-flex justify-content-between w-100">
                 {{-- Back to home --}}
                 <a href="{{ route('admin.words.index') }}" class="btn btn-secondary d-block">
-                    <i class="fas fa-arrow-left me-2"></i>Torna al Glossario</a>
-
+                    <i class="far fa-hand-point-left me-2"></i>Torna al Glossario
+                </a>
                 <div class="d-flex justify-content-between gap-2">
                     {{-- massive drop --}}
                     <form action="{{ route('admin.words.massivedrop') }}" method="POST" class="delete-form">

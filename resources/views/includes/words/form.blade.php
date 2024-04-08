@@ -70,7 +70,7 @@
         </div>
     </div>
     <div class="d-flex justify-content-between my-4">
-        <a href="{{route('admin.words.index')}}" class="btn btn-outline-secondary"><i class="far fa-hand-point-left me-2"></i>Torna indietro</a>
+        <a href="{{route('admin.words.index')}}" class="btn btn-secondary"><i class="far fa-hand-point-left me-2"></i>Torna indietro</a>
         <div>
             <button type="reset" class="btn btn-info"><i class="fas fa-eraser me-2"></i>{{Request::is('admin/words/*/edit') ? 'Ripristina campi' : 'Svuota campi' }}</button>
             <button type="submit" class="btn btn-success"><i class="far fa-floppy-disk me-2"></i>Salva</button>

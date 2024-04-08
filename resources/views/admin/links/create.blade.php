@@ -20,7 +20,7 @@
 
             {{-- Bottoni --}}
             <div class="d-flex justify-content-between my-4">
-                <a href="{{ route('admin.words.index') }}" class="btn btn-outline-secondary"><i
+                <a href="{{ route('admin.words.index') }}" class="btn btn-secondary"><i
                         class="far fa-hand-point-left me-2"></i>Torna indietro</a>
                 <div>
                     <button type="reset" class="btn btn-info"><i class="fas fa-eraser me-2"></i>Ripristina</button>
