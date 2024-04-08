@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', $word->word_name)
+
 @section('content')
     <div class="container w-75 m-auto">
 

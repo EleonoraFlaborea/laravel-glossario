@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Words List')
+@section('title', 'Tag')
 
 @section('content')
     <div class="container">
@@ -30,11 +30,11 @@
                         <th scope="row">{{ $tag->id }}</th>
                         <td>{{ $tag->label }}</td>
                         <td>
-                            <span style="background-color:{{$tag->color}}" class="badge">
-                              {{ $tag->color }}
+                            <span style="background-color:{{ $tag->color }}" class="badge">
+                                {{ $tag->color }}
 
                             </span>
-                           
+
                         </td>
                         <td>{{ $tag->getFormattedDate('created_at') }}</td>
                         <td>{{ $tag->getFormattedDate('updated_at') }}</td>

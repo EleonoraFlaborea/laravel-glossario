@@ -60,6 +60,7 @@ class WordController extends Controller
         $data = $request->all();
         $new_word = new Word();
         $new_word->fill($data);
+        $new_word->word_name = ucfirst($new_word->word_name);
         $new_word->save();
         if (array_key_exists('links', $data)) {
             foreach ($data['links'] as $link) {
@@ -116,6 +117,7 @@ class WordController extends Controller
 
         $data = $request->all();
         $word->fill($data);
+        $word->word_name = ucfirst($word->word_name);
         $word->save();
 
         // Controllo che arrivino dei links

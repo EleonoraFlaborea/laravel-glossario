@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'links List')
+@section('title', 'Link')
 
 @section('content')
     <div class="container">
@@ -29,7 +29,7 @@
                     <tr>
                         <th scope="row">{{ $link->id }}</th>
                         <td>{{ $link->name }}</td>
-                        <td> {{$link->url}}</td>                        
+                        <td> {{ $link->url }}</td>
                         <td>{{ $link->getFormattedDate('created_at') }}</td>
                         <td>{{ $link->getFormattedDate('updated_at') }}</td>
                         <td>

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}"  data-bs-theme="dark">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" data-bs-theme="dark">
 
 
 <head>
@@ -21,13 +21,13 @@
         crossorigin='anonymous' />
 
     <style>
-        body{
+        body {
             visibility: hidden
         }
     </style>
 
     <!-- Usando Vite -->
-    @vite(['resources/js/app.js'])    
+    @vite(['resources/js/app.js'])
 </head>
 
 <body>
@@ -53,7 +53,8 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ url('/') }}">{{ __('Home') }}</a>
+                            <a class="nav-link @if (Request::is('/')) active @endif"
+                                href="{{ url('/') }}">{{ __('Home') }}</a>
                         </li>
                         @auth
                             <li class="nav-item">
@@ -62,7 +63,7 @@
                             </li>
 
 
-                             <li class="nav-item">
+                            <li class="nav-item">
                                 <a class="nav-link @if (Request::is('admin/tags*')) active @endif"
                                     href="{{ route('admin.tags.index') }}">Tags</a>
 
@@ -113,8 +114,10 @@
             </div>
         </nav>
 
-        <main class="">
-            {{-- @include('includes.alerts') --}}
+        <main>
+            <div class="container my-3">
+                @include('includes.alerts')
+            </div>
             @yield('content')
         </main>
     </div>

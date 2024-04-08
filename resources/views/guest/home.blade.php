@@ -4,10 +4,10 @@
 
 @section('content')
 
-    <div class="container pt-5">
+    <div class="container pb-5">
 
-        <h1>GLOSSARIO</h1>
-        <div class="row g-2">
+        <h1 class="py-3 text-center">GLOSSARIO</h1>
+        <div class="row g-4">
 
             @forelse($words as $word)
                 <div class="col-6">
@@ -33,6 +33,7 @@
                             @forelse ($word->links as $link)
                                 <a href="{{ $link->url }}">{{ $link->name }}</a>
                             @empty
+                                <p class="m-0"><i>Nessun Link</i></p>
                             @endforelse
 
                         </div>
