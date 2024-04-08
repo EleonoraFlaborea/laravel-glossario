@@ -54,7 +54,7 @@ class TagController extends Controller
 
         $tag->save();
 
-        return to_route('admin.tags.index', $tag)->with('message', 'Tag creato con successo')->with('tag', 'success');
+        return to_route('admin.tags.index', $tag)->with('message', 'Tag creato con successo')->with('type', 'success');
     }
 
     /**
@@ -96,7 +96,7 @@ class TagController extends Controller
 
         $tag->save();
 
-        return to_route('admin.tags.index', $tag)->with('message', 'Tag modificato con successo')->with('tag', 'success');
+        return to_route('admin.tags.index', $tag)->with('message', 'Tag modificato con successo')->with('type', 'success');
     }
 
     /**
@@ -106,6 +106,6 @@ class TagController extends Controller
     {
         $tag->delete();
 
-        return to_route('admin.tags.index')->with('tag', 'danger')->with('message', 'Tag eliminato con successo');
+        return to_route('admin.tags.index')->with('type', 'danger')->with('message', 'Tag eliminato con successo');
     }
 }
