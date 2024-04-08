@@ -41,12 +41,11 @@ class WordController extends Controller
 
         $request->validate(
             [
-                // url:http,https
                 'word_name' => 'required|string|min:1|max:50|unique:words',
                 'description' => 'required|string',
                 'links' => 'nullable|array',
                 'links.*.name' => 'nullable|string',
-                'links.*.url' => 'nullable|url:http,https|unique:links,url',
+                'links.*.url' => 'nullable|url:http,https',
 
             ],
             [
@@ -55,12 +54,10 @@ class WordController extends Controller
                 'word_name.max' => 'La parola deve essere massimo di :max caratteri',
                 'word_name.min' => 'La parola deve essere minimo più di :min caratteri',
                 'description.required' => 'La descrizione è obbligatoria',
-                'links.*.url.url' => 'Link non valido',
-                'links.*.url.unique' => 'Fonte già usata',
+                'links.*.url.url' => 'Link non valido o inserire un url completo'
             ]
         );
         $data = $request->all();
-        // dd($data);
         $new_word = new Word();
         $new_word->fill($data);
         $new_word->save();
@@ -102,54 +99,51 @@ class WordController extends Controller
      */
     public function update(Request $request, Word $word)
     {
-        // dd($word->links);
         $request->validate([
             'word_name' => ['required', 'string', 'min:1', 'max:50', Rule::unique('words')->ignore($word->id)],
             'description' => 'required|string',
             'name_links' => 'nullable|array',
             'links.*.name' => 'nullable|string',
-            // 'links.*.url' => 'nullable|url:http,https|unique:links,url',
-            // 'links.*.url' => ['nullable', 'url', Rule::unique('links,url')->ignore($word->links->word_id)],
-            // 'nullable|url:http,https|unique:links,url',
-            // ['nullable', 'url', Rule::unique('links,url')->ignore($word->links->id)],
+            'links.*.url' => 'nullable|url:http,https',
         ], [
             'word_name.required' => 'La parola è obbligatorio',
             'word_name.unique' => 'La parola è già presente',
             'word_name.min' => 'La parola deve essere almeno :min lunga',
             'word_name.max' => 'La parola deve essere massimo :max lunga',
             'description.required' => 'La descrizione è obbligatoria',
-            'links.*.url.url' => 'Link non valido',
-            'links.*.url.unique' => 'Fonte già usata',
+            'links.*.url.url' => 'Link non valido o inserire un url completo',
         ]);
 
         $data = $request->all();
         $word->fill($data);
-
         $word->save();
+
         // Controllo che arrivino dei links
         if (array_key_exists('links', $data)) {
-            // Rinomino i link degli input
-            $input_links = $data['links'];
-            // Faccio un ciclo lungo quanti gli input arrivati
-            for ($i = 0; $i < count($input_links); $i++) {
-                // Recupero il link
-                $link = $input_links["link-$i"];
-                // Controllo se ha  modificato alcuni link esistenti
-                if ($i < count($word->links)) {
-                    if (!$link['name'] && !$link['url']) $word->links[$i]->delete();
-                    if ($link['name'] && $link['url']) {
-                        $word->links[$i]->name = $link['name'];
-                        $word->links[$i]->url = $link['url'];
-                        $word->links[$i]->save();
-                    }
-                    // Altrimenti creo dei nuovi link 
-                } else {
-                    if ($link['name'] && $link['url']) {
-                        $new_link = new Link();
-                        $new_link->name = $link['name'];
-                        $new_link->url = $link['url'];
-                        $new_link->word_id = $word->id;
-                        $new_link->save();
+            foreach ($data['links'] as $link) {
+                // Rinomino i link degli input
+                $input_links = $data['links'];
+                // Faccio un ciclo lungo quanti gli input arrivati
+                for ($i = 0; $i < count($input_links); $i++) {
+                    // Recupero il link
+                    $link = $input_links["link-$i"];
+                    // Controllo se ha  modificato alcuni link esistenti
+                    if ($i < count($word->links)) {
+                        if (!$link['name'] && !$link['url']) $word->links[$i]->delete();
+                        if ($link['name'] && $link['url']) {
+                            $word->links[$i]->name = $link['name'];
+                            $word->links[$i]->url = $link['url'];
+                            $word->links[$i]->save();
+                        }
+                        // Altrimenti creo dei nuovi link 
+                    } else {
+                        if ($link['name'] && $link['url']) {
+                            $new_link = new Link();
+                            $new_link->name = $link['name'];
+                            $new_link->url = $link['url'];
+                            $new_link->word_id = $word->id;
+                            $new_link->save();
+                        }
                     }
                 }
             }

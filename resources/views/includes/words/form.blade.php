@@ -45,7 +45,7 @@
             <div class="row old my-3">
                 <div class="col-6">
                     <label class="form-check-label" for="nome-fonte-{{$i}}">Inserisci il nome della fonte</label> 
-                    <input id="nome-fonte-{{$i}}"  class="form-control my-2" type="text" value="{{$link['name']}}" name="links[link-{{$i}}][name]">
+                    <input id="nome-fonte-{{$i}}"  class="form-control my-2 " type="text" value="{{$link['name']}}" name="links[link-{{$i}}][name]">
                 </div>
                 <div class="col-6">
                     <label class="form-check-label" for="url-fonte-{{$i}}">Inserisci il link della fonte</label> 
