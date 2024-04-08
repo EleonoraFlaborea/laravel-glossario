@@ -16,11 +16,6 @@
                 @enderror
             </div>
         </div>
-        {{-- Slug
-        <div class="col-6">
-            <label for="slug">Slug</label>
-            <input type="text" id="slug" class="form-control my-2" value="{{Str::slug(old('word_name', $word->word_name))}}" disabled >
-        </div> --}}
 
         {{-- Input description --}}
         <div class="col-12">
@@ -36,34 +31,37 @@
         </div>
         
         <div class="col-12">       
-            <button id="new-link-button" class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample">
+            <button id="new-link-button" class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target=".multi-collapse">
                 Inserisci link 
             </button>
-            <div class="@error('urls.*') is-invalid @elseif(old('urls.*', '')) is-valid @enderror"></div>            
-            @error('urls.*')            
+            <div class="@error('links.*') is-invalid @elseif(old('links.*', '')) is-valid @enderror"></div>            
+            @error('links.*')            
                 <div class="invalid-feedback">{{$message}}</div>
-            @enderror            
-            <div id="input-link"></div>
-            {{-- <div style="min-height: 120px;">
-              <div class="collapse collapse-horizontal" id="collapseWidthExample">
-                <div class="row" style="width: 600px;">
-                  <div class="col-6">
-                      <label class="form-check-label" for="nome-fonte">Inserisci il nome della fonte</label> 
-                      <input id="nome-fonte" class="form-control my-2" type="text" name="name_links[]">
-                  </div>
-                  <div class="col-6">
-                      <label class="form-check-label" for="url-fonte">Inserisci il link della fonte</label> 
-                      <input id="url-fonte" class="form-control my-2" type="text" name="urls[]">
-                  </div>
+            @enderror
+            {{-- Div per raccogliere gli input che verranno creati per i link --}}
+            @if($word->exists)
+            <div id="old-input">
+            @foreach ($word->links as $i => $link)
+            <div class="row old my-3">
+                <div class="col-6">
+                    <label class="form-check-label" for="nome-fonte-{{$i}}">Inserisci il nome della fonte</label> 
+                    <input id="nome-fonte-{{$i}}"  class="form-control my-2 " type="text" value="{{$link['name']}}" name="links[link-{{$i}}][name]">
                 </div>
-              </div>
-            </div> --}}
+                <div class="col-6">
+                    <label class="form-check-label" for="url-fonte-{{$i}}">Inserisci il link della fonte</label> 
+                    <input id="url-fonte-{{$i}}" class="form-control my-2" type="text" value="{{$link['url']}}" name="links[link-{{$i}}][url]">
+                </div>
+            </div> 
+            @endforeach
+            </div>
+            @endif
+            <div id="input-link"></div>
         </div>
     </div>
     <div class="d-flex justify-content-between my-4">
         <a href="{{route('admin.words.index')}}" class="btn btn-outline-secondary"><i class="far fa-hand-point-left me-2"></i>Torna indietro</a>
         <div>
-            <button type="reset" class="btn btn-info"><i class="fas fa-eraser me-2"></i>Svuota i campi</button>
+            <button type="reset" class="btn btn-info"><i class="fas fa-eraser me-2"></i>{{Request::is('admin/words/*/edit') ? 'Ripristina campi' : 'Svuota campi' }}</button>
             <button type="submit" class="btn btn-success"><i class="far fa-floppy-disk me-2"></i>Salva</button>
         </div>
     </div>
@@ -75,22 +73,22 @@
 <script>
     const newLinkButton = document.getElementById('new-link-button');
     const inputLink = document.getElementById('input-link');
-    let count = 0;
+    let count = document.querySelectorAll('.old').length;
     newLinkButton.addEventListener('click', event =>{
-    event.preventDefault()
-    const newInput = document.createElement('div');
-    count++;
-    newInput.classList.add('row', 'my-3');
-    newInput.innerHTML=`
-    <div class="col-6">
-        <label class="form-check-label" for="nome-fonte-${count}">Inserisci il nome della fonte</label> 
-        <input id="nome-fonte-${count}"  class="form-control my-2" type="text" name="name_links[]">
-    </div>
-    <div class="col-6">
-        <label class="form-check-label" for="url-fonte-${count}">Inserisci il link della fonte</label> 
-        <input id="url-fonte-${count}" class="form-control my-2" type="text" name="urls[]">
-        </div>`;
-    inputLink.appendChild(newInput);
+        event.preventDefault()
+        const newInput = document.createElement('div');
+        newInput.classList.add('row', 'my-3');
+        newInput.innerHTML=`
+            <div class="col-6">
+                <label class="form-check-label " for="nome-fonte-${count}">Inserisci il nome della fonte</label> 
+                <input id="nome-fonte-${count}"  class="form-control my-2" type="text" name="links[link-${count}][name]">
+            </div>
+            <div class="col-6">
+                <label class="form-check-label " for="url-fonte-${count}">Inserisci il link della fonte</label> 
+                <input id="url-fonte-${count}" class="form-control my-2" type="text" name="links[link-${count}][url]">
+            </div>`;
+        inputLink.appendChild(newInput);
+        count++;
     });
 </script>
 @endsection

@@ -1,5 +1,6 @@
 <!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}"  data-bs-theme="dark">
+
 
 <head>
     <meta charset="utf-8">
@@ -19,15 +20,21 @@
         integrity='sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=='
         crossorigin='anonymous' />
 
+    <style>
+        body{
+            visibility: hidden
+        }
+    </style>
+
     <!-- Usando Vite -->
-    @vite(['resources/js/app.js'])
+    @vite(['resources/js/app.js'])    
 </head>
 
 <body>
     <div id="app">
 
 
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar navbar-expand-md navbar-dark shadow">
             <div class="container">
                 <a class="navbar-brand d-flex align-items-center" href="{{ url('/') }}">
                     <div class="logo_laravel">
@@ -54,9 +61,15 @@
                                     href="{{ route('admin.words.index') }}">Parole</a>
                             </li>
 
+
                              <li class="nav-item">
                                 <a class="nav-link @if (Request::is('admin/tags*')) active @endif"
                                     href="{{ route('admin.tags.index') }}">Tags</a>
+
+                            <li class="nav-item">
+                                <a class="nav-link @if (Request::is('admin/links*')) active @endif"
+                                    href="{{ route('admin.links.index') }}">Link</a>
+
                             </li>
                         @endauth
                     </ul>
