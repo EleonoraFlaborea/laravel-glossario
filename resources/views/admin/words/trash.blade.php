@@ -1,19 +1,16 @@
 @extends('layouts.app')
 
-@section('title', 'Words List')
+@section('title', 'Cestino')
 
 @section('content')
     <div class="container">
-
         <header class="d-flex align-items-center justify-content-between flex-column py-3">
-            <h1 class="m-0">Words</h1>
+            <h1 class="m-0">Parole Eliminate</h1>
             <div class="d-flex justify-content-between w-100">
-                <div class="text-center">
-                    <a href="{{ route('admin.words.create') }}" class="btn btn-success"><i class="fas fa-plus"></i>
-                        Aggiungi Nuova Parola</a>
-                </div>
-                <a href="{{ route('admin.words.trash') }}" class="btn btn-secondary d-block">
-                    <i class="fas fa-trash-arrow-up me-2"></i>Guarda Cestino</a>
+                <a href="{{ route('admin.words.index') }}" class="btn btn-secondary d-block">
+                    <i class="fas fa-arrow-left me-2"></i>Torna alle parole attive</a>
+                <a href="{{ route('admin.words.index') }}" class="btn btn-danger d-block">
+                    <i class="fas fa-trash me-2"></i>Svuota cestino</a>
             </div>
         </header>
 
@@ -27,6 +24,10 @@
                     <th scope="col">Created At</th>
                     <th scope="col">Updated At</th>
                     <th scope="col">
+                        <div class="text-center">
+                            <a href="{{ route('admin.words.create') }}" class="btn btn-success"><i class="fas fa-plus"></i>
+                                Nuovo</a>
+                        </div>
                     </th>
                 </tr>
             </thead>
@@ -44,7 +45,8 @@
                             @endforelse
                         </td>
                         <td class="w-50">{{ $word->getAbstract() }} <a
-                                href="{{ route('admin.words.show', $word) }}">[...]</a></td>
+                                href="{{ route('admin.words.show', $word) }}">[...]</a>
+                        </td>
                         <td>{{ $word->getFormattedDate('created_at') }}</td>
                         <td>{{ $word->getFormattedDate('updated_at') }}</td>
                         <td>
@@ -80,8 +82,5 @@
             </tbody>
         </table>
     </div>
-@endsection
-
-@section('scripts')
-    @vite('resources/js/delete_confirmation.js')
+    </div>
 @endsection
