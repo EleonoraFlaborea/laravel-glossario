@@ -153,8 +153,7 @@ class WordController extends Controller
             ->with('toast-message', 'Progetto eliminato')
             ->with('toast-label', config('app.name'))
             ->with('toast-method', 'PATCH')
-            // ->with('toast-route', route('admin.words.restore', $project->id))
-            ->with('toast-route', 'NADA')
+            ->with('toast-route', route('admin.words.restore', $word->id))
             ->with('toast-button-label', 'Annulla');
     }
 

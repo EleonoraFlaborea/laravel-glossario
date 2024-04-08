@@ -21,11 +21,11 @@ Route::get('/', GuestHomeController::class)->name('guest.home');
 Route::get('/words/{word}', [GuestHomeController::class, 'show'])->name('guest.words.show');
 
 // Route x il cestino
-Route::get('/words/trash', [WordController::class, 'trash'])->name('words.trash');
+Route::get('/words/trash', [WordController::class, 'trash'])->name('admin.words.trash');
 // Route x recupero dal cestino
-Route::patch('/words/{word}/restore', [WordController::class, 'restore'])->name('words.restore')->withTrashed();
-// Route x eliminazione definitiva
-Route::delete('/words/{word}/drop', [WordController::class, 'drop'])->name('words.drop')->withTrashed();
+Route::patch('/admin./{word}/restore', [WordController::class, 'restore'])->name('admin.words.restore')->withTrashed();
+// // Route x eliminazione definitiva
+// Route::delete('/words/{word}/drop', [WordController::class, 'drop'])->name('admin.words.drop')->withTrashed();
 
 // Rotta per la home Admin
 Route::get('/admin', AdminHomeController::class)->middleware(['auth', 'verified'])->name('admin.home');
