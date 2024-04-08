@@ -157,7 +157,7 @@ class WordController extends Controller
 
         return to_route('admin.words.index')
             ->with('toast-button-type', 'danger')
-            ->with('toast-message', 'Progetto eliminato')
+            ->with('toast-message', 'Eliminazione avvenuta con successo')
             ->with('toast-label', config('app.name'))
             ->with('toast-method', 'PATCH')
             ->with('toast-route', route('admin.words.restore', $word->id))
@@ -175,7 +175,7 @@ class WordController extends Controller
     public function restore(Word $word)
     {
         $word->restore();
-        return to_route('admin.words.index')->with('type', 'success')->with('message', 'Progetto ripristinato con successo');
+        return to_route('admin.words.index')->with('type', 'success')->with('message', 'Parola ripristinata con successo');
     }
 
     public function drop(Word $word)
@@ -185,7 +185,7 @@ class WordController extends Controller
 
         $word->forceDelete();
 
-        return to_route('admin.words.trash')->with('type', 'warning')->with('message', 'Progetto eliminato definitivamente con successo');
+        return to_route('admin.words.trash')->with('type', 'warning')->with('message', 'Parola eliminata definitivamente con successo');
     }
 
     // Rotte Delete All e Restore all
