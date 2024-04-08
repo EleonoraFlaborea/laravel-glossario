@@ -34,9 +34,9 @@ Route::get('/admin/words', [WordController::class, 'index'])->name('admin.words.
 // Route x Create
 Route::get('/admin/words/create', [WordController::class, 'create'])->name('admin.words.create');
 // Route x Show
-Route::get('/admin/words/{word}', [WordController::class, 'show'])->name('admin.words.show');
+Route::get('/admin/words/{word}', [WordController::class, 'show'])->name('admin.words.show')->withTrashed();
 // Rotta per la modifica della parola
-Route::get('/admin/words/{word}/edit', [WordController::class, 'edit'])->name('admin.words.edit');
+Route::get('/admin/words/{word}/edit', [WordController::class, 'edit'])->name('admin.words.edit')->withTrashed();
 // Route per Store
 Route::post('/admin/words', [WordController::class, 'store'])->name('admin.words.store');
 // Route per Delete

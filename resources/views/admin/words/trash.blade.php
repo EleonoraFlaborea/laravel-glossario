@@ -24,10 +24,6 @@
                     <th scope="col">Created At</th>
                     <th scope="col">Updated At</th>
                     <th scope="col">
-                        <div class="text-center">
-                            <a href="{{ route('admin.words.create') }}" class="btn btn-success"><i class="fas fa-plus"></i>
-                                Nuovo</a>
-                        </div>
                     </th>
                 </tr>
             </thead>
@@ -60,7 +56,7 @@
                                     <i class="fas fa-pencil"></i>
                                 </a>
                                 {{-- Pulsante elimina --}}
-                                <form action="{{ route('admin.words.destroy', $word->id) }}" method="POST"
+                                <form action="{{ route('admin.words.drop', $word->id) }}" method="POST"
                                     class="delete-form">
                                     @csrf
                                     @method('DELETE')
@@ -83,4 +79,8 @@
         </table>
     </div>
     </div>
+@endsection
+
+@section('scripts')
+    @vite('resources/js/delete_confirmation.js')
 @endsection

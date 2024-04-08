@@ -172,7 +172,7 @@ class WordController extends Controller
         public function drop(Word $word){
     
             if($word->has('tags')) $word->tags()->detach();
-            if($word->image) Storage::delete($word->image);
+
             $word->forceDelete();
     
             return to_route('admin.words.trash')->with('type', 'warning')->with('message', 'Progetto eliminato definitivamente con successo');

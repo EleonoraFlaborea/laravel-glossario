@@ -27,6 +27,10 @@
                     <th scope="col">Created At</th>
                     <th scope="col">Updated At</th>
                     <th scope="col">
+                        {{-- <div class="text-center">
+                        <a href="{{ route('admin.words.create') }}" class="btn btn-success"><i class="fas fa-plus"></i>
+                            Nuovo</a>
+                    </div> --}}
                     </th>
                 </tr>
             </thead>
