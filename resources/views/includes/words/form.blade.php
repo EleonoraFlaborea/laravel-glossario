@@ -7,7 +7,7 @@
     @csrf
     <div class="row g-4">
         {{-- Input word_name --}}
-        <div class="col-6">
+        <div class="col">
             <div class="form-group">
                 <label for="word_name">Inserisci parola</label>
                 <input id="word_name" class="form-control my-2 @error('word_name') is-invalid @elseif(old('word_name', '')) is-valid @enderror" type="text" name="word_name" value="{{old('word_name', $word->word_name)}}" >
@@ -16,7 +16,18 @@
                 @enderror
             </div>
         </div>
-
+        {{-- Input tags --}}
+        <div class="col-7">
+            <p>Scegli i tag</p>
+            @forelse ($tags as $tag)
+            {{-- @dd($tag) --}}
+            <div class="form-check form-check-inline">
+                <label class="form-check-label" for="tag-{{$tag->id}}">{{$tag->label}}</label>
+                <input class="form-check-input" type="checkbox" id="tag-{{$tag->id}}" value="{{$tag->id}}" name="tags[]" @if (in_array($tag->id , old('tags', $old_tags ?? []))) checked @endif>
+            </div>
+            @empty
+            @endforelse
+        </div>
         {{-- Input description --}}
         <div class="col-12">
             <div class="form-group">

@@ -30,7 +30,8 @@ class WordController extends Controller
     {
         $word = new Word();
         $links = Link::select('id', 'name')->get();
-        return view('admin.words.create', compact('word', 'links'));
+        $tags = Tag::select('id', 'label')->get();
+        return view('admin.words.create', compact('word', 'links', 'tags'));
     }
 
     /**
@@ -73,6 +74,10 @@ class WordController extends Controller
                 }
             }
         }
+
+        // Creo il legame con possibili tags
+        if (Arr::exists($data, 'tags')) $new_word->tags()->sync($data['tags']);
+
         return to_route('admin.words.show', $new_word)->with('message', 'Parola creata con successo')->with('type', 'success');
     }
 
@@ -91,8 +96,10 @@ class WordController extends Controller
     public function edit(Word $word)
     {
         $links = Link::select('id', 'name')->get();
+        $tags = Tag::select('id', 'label')->get();
         $old_links = $word->links->pluck('id')->toArray();
-        return view('admin.words.edit', compact('word', 'links', 'old_links'));
+        $old_tags = $word->tags->pluck('id')->toArray();
+        return view('admin.words.edit', compact('word', 'links', 'tags', 'old_links', 'old_tags'));
     }
 
     /**
@@ -150,6 +157,11 @@ class WordController extends Controller
                 }
             }
         }
+
+        // Aggiorno il legame tra i tag e le tecnologie
+        if (Arr::exists($data, 'tags')) $word->tags()->sync($data['tags']);
+        elseif (!Arr::exists($data, 'tags') && $word->has('tags')) $word->tags()->detach();
+
         return to_route('admin.words.show', $word)->with('message', 'Parola modificata con successo')->with('type', 'success');
     }
 
@@ -169,42 +181,46 @@ class WordController extends Controller
             ->with('toast-button-label', 'Annulla');
     }
 
-        // * Rotte Soft Delete
-    
-        public function trash(){
-            $words = Word::onlyTrashed()->get();
-            return view('admin.words.trash', compact('words'));
-        }
-        
-        public function restore(Word $word){
-            $word->restore();
-            return to_route('admin.words.index')->with('type', 'success')->with('message', 'Progetto ripristinato con successo');
-        }
-        
-        public function drop(Word $word){
-    
-            if($word->has('tags')) $word->tags()->detach();
+    // * Rotte Soft Delete
 
+    public function trash()
+    {
+        $words = Word::onlyTrashed()->get();
+        return view('admin.words.trash', compact('words'));
+    }
+
+    public function restore(Word $word)
+    {
+        $word->restore();
+        return to_route('admin.words.index')->with('type', 'success')->with('message', 'Progetto ripristinato con successo');
+    }
+
+    public function drop(Word $word)
+    {
+
+        if ($word->has('tags')) $word->tags()->detach();
+
+        $word->forceDelete();
+
+        return to_route('admin.words.trash')->with('type', 'warning')->with('message', 'Progetto eliminato definitivamente con successo');
+    }
+
+    // Rotte Delete All e Restore all
+    public function massiveDrop()
+    {
+        $words = Word::onlyTrashed()->get();
+        foreach ($words as $word) {
             $word->forceDelete();
-    
-            return to_route('admin.words.trash')->with('type', 'warning')->with('message', 'Progetto eliminato definitivamente con successo');
         }
+        return to_route('admin.words.trash')->with('type', 'warning')->with('message', 'Tutti i progetti sono stati eliminati definitivamente con successo');
+    }
 
-        // Rotte Delete All e Restore all
-        public function massiveDrop(){
-            $words = Word::onlyTrashed()->get();
-            foreach($words as $word){
-                $word->forceDelete();
-            }
-            return to_route('admin.words.trash')->with('type', 'warning')->with('message', 'Tutti i progetti sono stati eliminati definitivamente con successo');
+    public function massiveRestore()
+    {
+        $words = Word::onlyTrashed()->get();
+        foreach ($words as $word) {
+            $word->restore();
         }
-
-        public function massiveRestore(){
-            $words = Word::onlyTrashed()->get();
-            foreach($words as $word){
-                $word->restore();
-            }
-            return to_route('admin.words.index')->with('type', 'success')->with('message', 'Tutti i progetti sono stati ripristinati con successo');
-        }
-    
+        return to_route('admin.words.index')->with('type', 'success')->with('message', 'Tutti i progetti sono stati ripristinati con successo');
+    }
 }
