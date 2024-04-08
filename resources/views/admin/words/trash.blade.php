@@ -63,7 +63,15 @@
                                     <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#modal">
                                         <i class="fas fa-trash-can"></i>
                                     </button>
-
+                                </form>
+                                {{-- Pulsante restore --}}
+                                <form action="{{ route('admin.words.restore', $word->id) }}" method="POST"
+                                    class="restore-form">
+                                    @csrf
+                                    @method('PATCH')
+                                    <button type="submit" class="btn btn-sm btn-success">
+                                        <i class="fas fa-arrows-rotate"></i>
+                                    </button>
                                 </form>
                             </div>
                         </td>
