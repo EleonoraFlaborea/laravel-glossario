@@ -20,15 +20,21 @@
         integrity='sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=='
         crossorigin='anonymous' />
 
+    <style>
+        body{
+            visibility: hidden
+        }
+    </style>
+
     <!-- Usando Vite -->
-    @vite(['resources/js/app.js'])
+    @vite(['resources/js/app.js'])    
 </head>
 
 <body>
     <div id="app">
 
 
-        <nav class="navbar navbar-expand-md navbar-dark  shadow">
+        <nav class="navbar navbar-expand-md navbar-dark shadow">
             <div class="container">
                 <a class="navbar-brand d-flex align-items-center" href="{{ url('/') }}">
                     <div class="logo_laravel">
