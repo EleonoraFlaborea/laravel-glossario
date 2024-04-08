@@ -68,7 +68,7 @@ class LinkController extends Controller
         $data = $request->all();
         $link->update($data);
 
-        return to_route('admin.links.index')->with('message', 'Url modificato con successo')->with('type', 'success');
+        return to_route('admin.links.index')->with('message', 'Link modificato con successo')->with('type', 'success');
     }
 
     /**
@@ -78,6 +78,6 @@ class LinkController extends Controller
     {
         $link->delete();
 
-        return to_route('admin.links.index')->with('message', 'Url eliminato con successo')->with('type', 'success');
+        return to_route('admin.links.index')->with('message', 'Link eliminato con successo')->with('type', 'danger');
     }
 }
