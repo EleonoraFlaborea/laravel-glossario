@@ -126,11 +126,15 @@ class WordController extends Controller
         $word->fill($data);
 
         $word->save();
-
+        // Controllo che arrivino dei links
         if (array_key_exists('links', $data)) {
+            // Rinomino i link degli input
             $input_links = $data['links'];
+            // Faccio un ciclo lungo quanti gli input arrivati
             for ($i = 0; $i < count($input_links); $i++) {
+                // Recupero il link
                 $link = $input_links["link-$i"];
+                // Controllo se ha  modificato alcuni link esistenti
                 if ($i < count($word->links)) {
                     if (!$link['name'] && !$link['url']) $word->links[$i]->delete();
                     if ($link['name'] && $link['url']) {
@@ -138,6 +142,7 @@ class WordController extends Controller
                         $word->links[$i]->url = $link['url'];
                         $word->links[$i]->save();
                     }
+                    // Altrimenti creo dei nuovi link 
                 } else {
                     if ($link['name'] && $link['url']) {
                         $new_link = new Link();
