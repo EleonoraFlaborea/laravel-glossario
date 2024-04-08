@@ -5,7 +5,7 @@
 @section('content')
     <div class="container">
 
-        <h1 class="text-center py-3">LINKS</h1>
+        <h1 class="text-center py-3">LINK</h1>
 
         <table class="table table-striped table-dark">
             <thead>
@@ -13,12 +13,13 @@
                     <th scope="col">#</th>
                     <th scope="col">Nome</th>
                     <th scope="col">Url</th>
-                    <th scope="col">Created At</th>
-                    <th scope="col">Updated At</th>
+                    <th scope="col">Creato il</th>
+                    <th scope="col">Modificato il</th>
                     <th scope="col">
                         <div class="text-center">
                             <a href="{{ route('admin.links.create') }}" class="btn btn-success"><i class="fas fa-plus"></i>
-                                Nuovo</a>
+                                Nuovo
+                            </a>
                         </div>
                     </th>
                 </tr>
@@ -53,7 +54,7 @@
                 @empty
                     <tr>
                         <td colspan="7">
-                            <h3 class="text-center">Non ci sono parole da mostrare!</h3>
+                            <h3 class="text-center">Non ci sono link da mostrare!</h3>
                         </td>
                     </tr>
                 @endforelse
