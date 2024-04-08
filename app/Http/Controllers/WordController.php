@@ -157,4 +157,25 @@ class WordController extends Controller
             ->with('toast-route', 'NADA')
             ->with('toast-button-label', 'Annulla');
     }
+
+        // * Rotte Soft Delete
+    
+        public function trash(){
+            $words = Word::onlyTrashed()->get();
+            return view('admin.words.trash', compact('words'));
+        }
+        
+        public function restore(Word $word){
+            $word->restore();
+            return to_route('admin.words.index')->with('type', 'success')->with('message', 'Progetto ripristinato con successo');
+        }
+        
+        public function drop(Word $word){
+    
+            if($word->has('tags')) $word->tags()->detach();
+            if($word->image) Storage::delete($word->image);
+            $word->forceDelete();
+    
+            return to_route('admin.words.trash')->with('type', 'warning')->with('message', 'Progetto eliminato definitivamente con successo');
+        }
 }

@@ -12,7 +12,6 @@ class Word extends Model
     use HasFactory;
     use softDeletes;
 
-
     protected $fillable = ['word_name', 'description'];
 
     public function getFormattedDate($column, $format = 'd/m/y h:i:s')
