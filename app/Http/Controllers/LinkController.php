@@ -12,7 +12,8 @@ class LinkController extends Controller
      */
     public function index()
     {
-        //
+        $links = Link::all();
+        return view('admin.links.index', compact('links'));
     }
 
     /**
@@ -20,7 +21,7 @@ class LinkController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.links.create');
     }
 
     /**
@@ -28,15 +29,20 @@ class LinkController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Link $link)
-    {
-        //
+        $request->validate([
+            'name' => 'nullable|string',
+            'url' => 'nullable|url:http,https',
+        ], [
+            'url.url' => 'L\'url inserito non è valido'
+        ]);
+
+        $data = $request->all();
+        $link = new Link();
+        $link->fill($data);
+        $link->save();
+
+        return to_route('admin.links.index')->with('message', 'Url creato con successo')->with('type', 'success');
     }
 
     /**
@@ -44,7 +50,7 @@ class LinkController extends Controller
      */
     public function edit(Link $link)
     {
-        //
+        return view('admin.links.edit', compact('link'));
     }
 
     /**
@@ -52,7 +58,17 @@ class LinkController extends Controller
      */
     public function update(Request $request, Link $link)
     {
-        //
+        $request->validate([
+            'name' => 'nullable|string',
+            'url' => 'nullable|url:http,https',
+        ], [
+            'url.url' => 'L\'url inserito non è valido'
+        ]);
+
+        $data = $request->all();
+        $link->update($data);
+
+        return to_route('admin.links.index')->with('message', 'Url modificato con successo')->with('type', 'success');
     }
 
     /**
@@ -60,6 +76,8 @@ class LinkController extends Controller
      */
     public function destroy(Link $link)
     {
-        //
+        $link->delete();
+
+        return to_route('admin.links.index')->with('message', 'Url eliminato con successo')->with('type', 'success');
     }
 }
