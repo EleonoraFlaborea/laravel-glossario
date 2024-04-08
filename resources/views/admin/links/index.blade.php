@@ -33,10 +33,6 @@
                         <td>{{ $link->getFormattedDate('updated_at') }}</td>
                         <td>
                             <div class="d-flex justify-content-center align-items-center gap-2">
-                                {{-- Icona visualizza parola --}}
-                                <a href="{{ route('admin.links.show', $link) }}" class="btn btn-sm btn-primary">
-                                    <i class="fas fa-eye"></i>
-                                </a>
                                 {{-- Icona modifica parola --}}
                                 <a href="{{ route('admin.links.edit', $link) }}" class="btn btn-sm btn-warning">
                                     <i class="fas fa-pencil"></i>

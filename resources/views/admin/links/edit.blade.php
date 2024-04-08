@@ -2,6 +2,29 @@
 
 @section('content')
 <div class="container mt-5">
-    @include('includes.words.form')
+    <form action="{{route('admin.links.update', $link)}}" method="POST">
+        @csrf 
+        @method('PUT')
+        
+        <div class="row">
+            <div class="col-6">
+                <label class="form-check-label" for="name">Inserisci il nome dell'url</label> 
+                <input id="name"  class="form-control my-2 " type="text" value="{{$link['name']}}" name="name">
+            </div>
+            <div class="col-6">
+                <label class="form-check-label" for="url">Inserisci l'url</label> 
+                <input id="url" class="form-control my-2" type="text" value="{{$link['url']}}" name="url">
+            </div>
+        </div>
+
+        {{-- Bottoni --}}
+        <div class="d-flex justify-content-between my-4">
+            <a href="{{route('admin.words.index')}}" class="btn btn-outline-secondary"><i class="far fa-hand-point-left me-2"></i>Torna indietro</a>
+            <div>
+                <button type="reset" class="btn btn-info"><i class="fas fa-eraser me-2"></i>Ripristina</button>
+                <button type="submit" class="btn btn-success"><i class="far fa-floppy-disk me-2"></i>Salva</button>
+            </div>
+        </div>
+    </form>
 </div>    
 @endsection

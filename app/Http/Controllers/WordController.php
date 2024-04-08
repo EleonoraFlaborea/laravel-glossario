@@ -72,7 +72,7 @@ class WordController extends Controller
                 }
             }
         }
-        return to_route('admin.words.show', $new_word);
+        return to_route('admin.words.show', $new_word)->with('message', 'Parola creata con successo')->with('type', 'success');
     }
 
     /**
