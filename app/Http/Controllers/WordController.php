@@ -129,31 +129,14 @@ class WordController extends Controller
 
         // Controllo che arrivino dei links
         if (array_key_exists('links', $data)) {
+            $word->links()->delete();
             foreach ($data['links'] as $link) {
-                // Rinomino i link degli input
-                $input_links = $data['links'];
-                // Faccio un ciclo lungo quanti gli input arrivati
-                for ($i = 0; $i < count($input_links); $i++) {
-                    // Recupero il link
-                    $link = $input_links["link-$i"];
-                    // Controllo se ha  modificato alcuni link esistenti
-                    if ($i < count($word->links)) {
-                        if (!$link['name'] && !$link['url']) $word->links[$i]->delete();
-                        if ($link['name'] && $link['url']) {
-                            $word->links[$i]->name = $link['name'];
-                            $word->links[$i]->url = $link['url'];
-                            $word->links[$i]->save();
-                        }
-                        // Altrimenti creo dei nuovi link 
-                    } else {
-                        if ($link['name'] && $link['url']) {
-                            $new_link = new Link();
-                            $new_link->name = $link['name'];
-                            $new_link->url = $link['url'];
-                            $new_link->word_id = $word->id;
-                            $new_link->save();
-                        }
-                    }
+                if ($link['name'] && $link['url']) {
+                    $new_link = new Link();
+                    $new_link->name = $link['name'];
+                    $new_link->url = $link['url'];
+                    $new_link->word_id = $word->id;
+                    $new_link->save();
                 }
             }
         }
