@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('word_name',50)->unique();
             $table->text('description');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

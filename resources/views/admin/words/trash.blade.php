@@ -1,19 +1,34 @@
 @extends('layouts.app')
 
-@section('title', 'Words List')
+@section('title', 'Cestino')
 
 @section('content')
     <div class="container">
-
         <header class="d-flex align-items-center justify-content-between flex-column py-3">
-            <h1 class="m-0">Glossario</h1>
+            <h1 class="m-0">Parole Eliminate</h1>
             <div class="d-flex justify-content-between w-100">
-                <div class="text-center">
-                    <a href="{{ route('admin.words.create') }}" class="btn btn-success"><i class="fas fa-plus"></i>
-                        Aggiungi Nuova Parola</a>
+                {{-- Back to home --}}
+                <a href="{{ route('admin.words.index') }}" class="btn btn-secondary d-block">
+                    <i class="fas fa-arrow-left me-2"></i>Torna al Glossario</a>
+
+                <div class="d-flex justify-content-between gap-2">
+                    {{-- massive drop --}}
+                    <form action="{{ route('admin.words.massivedrop') }}" method="POST" class="delete-form">
+                        @csrf
+                        @method('DELETE')
+                        <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modal">
+                            <i class="fas fa-trash me-2"></i>Svuota cestino</a>
+                        </button>
+                    </form>
+                    {{-- massive restore --}}
+                    <form action="{{ route('admin.words.massiverestore') }}" method="POST" class="restore-form">
+                        @csrf
+                        @method('PATCH')
+                        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modal">
+                            <i class="fas fa-arrows-rotate me-2"></i>Ripristina tutto</a>
+                        </button>
+                    </form>
                 </div>
-                <a href="{{ route('admin.words.trash') }}" class="btn btn-secondary d-block">
-                    <i class="fas fa-trash-arrow-up me-2"></i>Guarda Cestino</a>
             </div>
         </header>
 
@@ -27,10 +42,6 @@
                     <th scope="col">Created At</th>
                     <th scope="col">Updated At</th>
                     <th scope="col">
-                        {{-- <div class="text-center">
-                        <a href="{{ route('admin.words.create') }}" class="btn btn-success"><i class="fas fa-plus"></i>
-                            Nuovo</a>
-                    </div> --}}
                     </th>
                 </tr>
             </thead>
@@ -48,7 +59,8 @@
                             @endforelse
                         </td>
                         <td class="w-50">{{ $word->getAbstract() }} <a
-                                href="{{ route('admin.words.show', $word) }}">[...]</a></td>
+                                href="{{ route('admin.words.show', $word) }}">[...]</a>
+                        </td>
                         <td>{{ $word->getFormattedDate('created_at') }}</td>
                         <td>{{ $word->getFormattedDate('updated_at') }}</td>
                         <td>
@@ -62,14 +74,23 @@
                                     <i class="fas fa-pencil"></i>
                                 </a>
                                 {{-- Pulsante elimina --}}
-                                <form action="{{ route('admin.words.destroy', $word->id) }}" method="POST"
+                                <form action="{{ route('admin.words.drop', $word->id) }}" method="POST"
                                     class="delete-form">
                                     @csrf
                                     @method('DELETE')
                                     <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#modal">
                                         <i class="fas fa-trash-can"></i>
                                     </button>
-
+                                </form>
+                                {{-- Pulsante restore --}}
+                                <form action="{{ route('admin.words.restore', $word->id) }}" method="POST"
+                                    class="restore-form">
+                                    @csrf
+                                    @method('PATCH')
+                                    <button type="submit" class="btn btn-sm btn-success" data-bs-toggle="modal"
+                                        data-bs-target="#modal">
+                                        <i class="fas fa-arrows-rotate"></i>
+                                    </button>
                                 </form>
                             </div>
                         </td>
@@ -83,6 +104,7 @@
                 @endforelse
             </tbody>
         </table>
+    </div>
     </div>
 @endsection
 

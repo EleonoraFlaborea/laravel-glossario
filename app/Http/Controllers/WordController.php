@@ -163,8 +163,46 @@ class WordController extends Controller
             ->with('toast-message', 'Progetto eliminato')
             ->with('toast-label', config('app.name'))
             ->with('toast-method', 'PATCH')
-            // ->with('toast-route', route('admin.words.restore', $project->id))
-            ->with('toast-route', 'NADA')
+            ->with('toast-route', route('admin.words.restore', $word->id))
             ->with('toast-button-label', 'Annulla');
     }
+
+        // * Rotte Soft Delete
+    
+        public function trash(){
+            $words = Word::onlyTrashed()->get();
+            return view('admin.words.trash', compact('words'));
+        }
+        
+        public function restore(Word $word){
+            $word->restore();
+            return to_route('admin.words.index')->with('type', 'success')->with('message', 'Progetto ripristinato con successo');
+        }
+        
+        public function drop(Word $word){
+    
+            if($word->has('tags')) $word->tags()->detach();
+
+            $word->forceDelete();
+    
+            return to_route('admin.words.trash')->with('type', 'warning')->with('message', 'Progetto eliminato definitivamente con successo');
+        }
+
+        // Rotte Delete All e Restore all
+        public function massiveDrop(){
+            $words = Word::onlyTrashed()->get();
+            foreach($words as $word){
+                $word->forceDelete();
+            }
+            return to_route('admin.words.trash')->with('type', 'warning')->with('message', 'Tutti i progetti sono stati eliminati definitivamente con successo');
+        }
+
+        public function massiveRestore(){
+            $words = Word::onlyTrashed()->get();
+            foreach($words as $word){
+                $word->restore();
+            }
+            return to_route('admin.words.index')->with('type', 'success')->with('message', 'Tutti i progetti sono stati ripristinati con successo');
+        }
+    
 }
