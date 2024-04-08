@@ -7,15 +7,29 @@
         <header class="d-flex align-items-center justify-content-between flex-column py-3">
             <h1 class="m-0">Parole Eliminate</h1>
             <div class="d-flex justify-content-between w-100">
+                {{-- Back to home --}}
                 <a href="{{ route('admin.words.index') }}" class="btn btn-secondary d-block">
                     <i class="fas fa-arrow-left me-2"></i>Torna al Glossario</a>
-                <form action="{{ route('admin.words.clear') }}" method="POST" class="delete-form">
-                    @csrf
-                    @method('DELETE')
-                    <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#modal">
-                        <i class="fas fa-trash me-2"></i>Svuota cestino</a>
-                    </button>
-                </form>
+
+                <div class="d-flex justify-content-between gap-2">
+                    {{-- massive drop --}}
+                    <form action="{{ route('admin.words.massivedrop') }}" method="POST" class="delete-form">
+                        @csrf
+                        @method('DELETE')
+                        <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modal">
+                            <i class="fas fa-trash me-2"></i>Svuota cestino</a>
+                        </button>
+                    </form>
+                    {{-- massive restore --}}
+                    <form action="{{ route('admin.words.massiverestore') }}" method="POST" class="restore-form">
+                        @csrf
+                        @method('PATCH')
+                        {{-- <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modal"> --}}
+                        <button class="btn btn-success" type="submit">
+                            <i class="fas fa-arrows-rotate me-2"></i>Ripristina tutto</a>
+                        </button>
+                    </form>
+                </div>
             </div>
         </header>
 

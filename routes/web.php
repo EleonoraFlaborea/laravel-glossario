@@ -23,7 +23,9 @@ Route::get('/words/{word}', [GuestHomeController::class, 'show'])->name('guest.w
 // Route x il cestino
 Route::get('/admin/words/trash', [WordController::class, 'trash'])->name('admin.words.trash');
 // Route x eliminazione MASSIVA definitiva
-Route::delete('/admin/words/clear', [WordController::class, 'clear'])->name('admin.words.clear');
+Route::delete('/admin/words/massivedrop', [WordController::class, 'massivedrop'])->name('admin.words.massivedrop');
+// Route x restore MASSIVO
+Route::patch('/admin/words/massiverestore', [WordController::class, 'massiverestore'])->name('admin.words.massiverestore');
 // Route x recupero dal cestino
 Route::patch('/admin/{word}/restore', [WordController::class, 'restore'])->name('admin.words.restore')->withTrashed();
 // Route x eliminazione definitiva

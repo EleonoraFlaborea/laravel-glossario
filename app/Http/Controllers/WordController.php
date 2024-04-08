@@ -179,12 +179,20 @@ class WordController extends Controller
         }
 
         // Rotte Delete All e Restore all
-        public function clear(){
+        public function massiveDrop(){
             $words = Word::onlyTrashed()->get();
             foreach($words as $word){
                 $word->forceDelete();
             }
             return to_route('admin.words.trash')->with('type', 'warning')->with('message', 'Tutti i progetti sono stati eliminati definitivamente con successo');
+        }
+
+        public function massiveRestore(){
+            $words = Word::onlyTrashed()->get();
+            foreach($words as $word){
+                $word->restore();
+            }
+            return to_route('admin.words.trash')->with('type', 'success')->with('message', 'Tutti i progetti sono stati ripristinati con successo');
         }
     
 }
