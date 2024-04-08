@@ -8,7 +8,7 @@
         @include('includes.words.card')
 
         <div class="d-flex justify-content-between mt-4">
-            <a href="{{ route('admin.words.index') }}" class="btn btn-secondary">
+            <a href="{{ url()->previous() }}" class="btn btn-secondary">
                 <i class="far fa-hand-point-left me-2"></i>Torna indietro</a>
             <div class="d-flex gap-2">
                 <a href="{{ route('admin.words.edit', $word) }}" class="btn btn-warning"><i class="fas fa-pencil me-2"></i>Modifica</a>
