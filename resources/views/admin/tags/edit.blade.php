@@ -15,7 +15,7 @@
                         <label for="tag_label">Inserisci tag</label>
                         <input id="tag_label"
                             class="form-control my-2 @error('tag_label') is-invalid @elseif(old('tag_label', '')) is-valid @enderror"
-                            type="text" name="tag_label" value="{{ old('tag_label', $tag->label) }}">
+                            type="text" name="label" value="{{ old('tag_label', $tag->label) }}">
                         @error('tag_label')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -29,13 +29,13 @@
                         <label for="exampleColorInput" class="form-label">Scegli il colore che preferisci</label>
                         <input type="color"
                             class="form-control form-control-color @error('tag_color') is-invalid @elseif(old('tag_color', '')) is-valid @enderror"
-                            id="tag_color" value="{{ $tag->color }}" title="Choose your color">
+                            id="tag_color" name="color" value="{{ $tag->color }}" title="Choose your color">
                     </div>
                 </div>
 
             </div>
             <div class="d-flex justify-content-between my-4">
-                <a href="{{ route('admin.tags.index') }}" class="btn btn-secondary"><i
+                <a href="{{ url()->previous() }}" class="btn btn-secondary"><i
                         class="far fa-hand-point-left me-2"></i>Torna indietro</a>
                 <div>
                     <button type="reset" class="btn btn-info"><i class="fas fa-eraser me-2"></i>Svuota i campi</button>

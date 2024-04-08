@@ -11,7 +11,9 @@ class Tag extends Model
 {
     use HasFactory;
 
-    public function words() 
+    protected $fillable = ['label', 'color'];
+
+    public function words()
     {
         return $this->belongsToMany(Word::class);
     }

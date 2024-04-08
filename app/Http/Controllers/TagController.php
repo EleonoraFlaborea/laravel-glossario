@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Tag;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class TagController extends Controller
 {
@@ -26,7 +27,6 @@ class TagController extends Controller
         $tags = Tag::select('label', 'color')->get();
 
         return view('admin.tags.create', compact('tags'));
-      
     }
 
     /**
@@ -37,7 +37,7 @@ class TagController extends Controller
         $request->validate([
             'label' => 'required|string|unique:tags',
             'color' => 'required|string|unique:tags',
-            
+
         ], [
             'label.required' => 'Il nome è obbligatorio',
             'label.unique' => 'Non possono esistere due tag con lo stesso nome',
@@ -54,7 +54,7 @@ class TagController extends Controller
 
         $tag->save();
 
-        return to_route('admin.tag.show', $tag)->with('message', 'Tag creato con successo')->with('tag', 'success');
+        return to_route('admin.tags.index', $tag)->with('message', 'Tag creato con successo')->with('tag', 'success');
     }
 
     /**
@@ -80,9 +80,9 @@ class TagController extends Controller
     {
 
         $request->validate([
-            'label' => 'required|string|unique:tags',
-            'color' => 'required|string|unique:tags',
-            
+            'label' => ['required', 'string', Rule::unique('tags')->ignore($tag->id)],
+            'color' => ['required', 'string', Rule::unique('tags')->ignore($tag->id)],
+
         ], [
             'label.required' => 'Il nome è obbligatorio',
             'label.unique' => 'Non possono esistere due tag con lo stesso nome',
@@ -93,11 +93,10 @@ class TagController extends Controller
 
         $data = $request->all();
         $tag->fill($data);
-        
+
         $tag->save();
-        
-        return to_route('admin.tags.index', $tag)->with('message', 'Tag modificato con successo')->with('tag', 'success'); 
-    
+
+        return to_route('admin.tags.index', $tag)->with('message', 'Tag modificato con successo')->with('tag', 'success');
     }
 
     /**
