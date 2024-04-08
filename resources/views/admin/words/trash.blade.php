@@ -8,9 +8,14 @@
             <h1 class="m-0">Parole Eliminate</h1>
             <div class="d-flex justify-content-between w-100">
                 <a href="{{ route('admin.words.index') }}" class="btn btn-secondary d-block">
-                    <i class="fas fa-arrow-left me-2"></i>Torna alle parole attive</a>
-                <a href="{{ route('admin.words.index') }}" class="btn btn-danger d-block">
-                    <i class="fas fa-trash me-2"></i>Svuota cestino</a>
+                    <i class="fas fa-arrow-left me-2"></i>Torna al Glossario</a>
+                <form action="{{ route('admin.words.clear') }}" method="POST" class="delete-form">
+                    @csrf
+                    @method('DELETE')
+                    <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#modal">
+                        <i class="fas fa-trash me-2"></i>Svuota cestino</a>
+                    </button>
+                </form>
             </div>
         </header>
 
@@ -91,4 +96,13 @@
 
 @section('scripts')
     @vite('resources/js/delete_confirmation.js')
+    {{-- <script>
+        const deleteAllButton = document.getElementById('delete-all-button');
+        const deleteButtons = document.querySelectorAll('.delete-form');
+        deleteAllButton.addEventListener('click', () => {
+            deleteButtons.forEach(form => {
+                form.submit();
+            });
+        });
+    </script> --}}
 @endsection

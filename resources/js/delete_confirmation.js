@@ -15,7 +15,7 @@ deleteForms.forEach(form => {
         confirmationButton.innerText = 'Conferma Elimina';
         confirmationButton.className = 'btn btn-danger';
         modalTitle.innerText = 'Elimina progetto';
-        modalBody.innerText = 'Sei sicuro di voler eliminare questo progetto?';
+        modalBody.innerText = 'Sei sicuro di voler procedere all\'eliminazione?';
     })
 })
 

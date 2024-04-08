@@ -177,4 +177,14 @@ class WordController extends Controller
     
             return to_route('admin.words.trash')->with('type', 'warning')->with('message', 'Progetto eliminato definitivamente con successo');
         }
+
+        // Rotte Delete All e Restore all
+        public function clear(){
+            $words = Word::onlyTrashed()->get();
+            foreach($words as $word){
+                $word->forceDelete();
+            }
+            return to_route('admin.words.trash')->with('type', 'warning')->with('message', 'Tutti i progetti sono stati eliminati definitivamente con successo');
+        }
+    
 }
